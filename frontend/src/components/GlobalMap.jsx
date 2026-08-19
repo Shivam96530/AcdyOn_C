@@ -121,6 +121,14 @@ function RegionalMap({ region }) {
         </span>
       </div>
 
+      {mobile && (
+        <div className="absolute bottom-3 left-4 z-[500] pointer-events-none">
+          <span className="text-[9px] text-ink/50 font-semibold uppercase tracking-widest bg-paper/90 px-2.5 py-1 border border-line btn-cut-sm">
+            Tap pin to explore
+          </span>
+        </div>
+      )}
+
       {/* Leaflet Map */}
       <div className="w-full flex-1 relative z-0">
         <MapContainer
@@ -130,7 +138,8 @@ function RegionalMap({ region }) {
           attributionControl={false}
           scrollWheelZoom={false}
           doubleClickZoom={false}
-          dragging={!mobile}
+          dragging={false}
+          touchZoom={false}
           className="w-full h-full"
         >
           <TileLayer

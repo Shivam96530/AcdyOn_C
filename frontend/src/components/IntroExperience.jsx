@@ -154,7 +154,8 @@ export default function IntroExperience({ onComplete }) {
     const start = performance.now();
     const duration = 1800;
     const maxScale =
-      Math.max(windowSize.w / dimensions.w, windowSize.h / dimensions.h) * 2.4;
+      Math.max(windowSize.w / dimensions.w, windowSize.h / dimensions.h) *
+      (windowSize.w < 768 ? 1.8 : 2.4);
 
     let rafId;
     const animate = () => {
@@ -424,7 +425,7 @@ export default function IntroExperience({ onComplete }) {
           style={{ zIndex: 100 }}
         >
           <div
-            className="overflow-hidden flex flex-col items-center justify-center relative"
+            className="overflow-hidden flex flex-col items-center justify-center relative px-6 pb-8"
             style={{
               width: `${dimensions.w}px`,
               height: `${dimensions.h}px`,

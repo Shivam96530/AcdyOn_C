@@ -16,7 +16,7 @@ export default function AcdyOnAdvantage() {
             </h2>
           </div>
 
-          <div className="border-l border-black/15 pl-0 lg:pl-10">
+          <div className="border-l-0 lg:border-l border-black/15 pl-0 lg:pl-10">
             <p className="text-xs uppercase tracking-[0.18em] text-black/45">
               Our Commitment
             </p>
