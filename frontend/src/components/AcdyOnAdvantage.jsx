@@ -45,34 +45,46 @@ export default function AcdyOnAdvantage() {
           </div>
         </div>
 
-        <div className="mt-16 grid border-t border-black/15 sm:grid-cols-2 lg:grid-cols-3">
-          {advantages.map((advantage, index) => (
-            <motion.article
-              key={advantage.title}
-              initial={{ opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.06 }}
-              className="border-b border-r border-black/15 p-7 first:border-l lg:min-h-[230px]"
-            >
-              <span className="text-xs text-black/40">
-                0{index + 1}
-              </span>
-              <h3 className="mt-8 text-xl font-medium tracking-[-0.035em]">
-                {advantage.title}
-              </h3>
-              <p className="mt-3 text-sm leading-6 text-black/60">
-                {advantage.description}
-              </p>
-            </motion.article>
-          ))}
-        </div>
+        <div className="mt-16">
+          {/* Grid with proper borders on all cards including last row */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-0 border border-line">
+            {advantages.map((advantage, index) => {
+              const isLastRow = index >= advantages.length - 3;
+              const isLastColumn = (index + 1) % 3 === 0;
 
-        <p className="mt-8 max-w-4xl text-xs leading-5 text-black/45">
-          AcdyOn facilitates access to programmes and academic pathways through
-          partner institutions. Final admissions, academic evaluation and degree
-          conferment decisions are made by the respective institutions.
-        </p>
+              return (
+                <motion.article
+                  key={advantage.title}
+                  initial={{ opacity: 0, y: 16 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.06 }}
+                  className={`p-7 md:p-9 min-h-[220px] ${
+                    !isLastRow ? "border-b" : ""
+                  } ${!isLastColumn ? "md:border-r" : ""}`}
+                  style={{ borderColor: "var(--line)" }}
+                >
+                  <span className="text-xs text-ink/40">
+                    0{index + 1}
+                  </span>
+                  <h3 className="mt-8 text-xl font-medium tracking-[-0.035em]">
+                    {advantage.title}
+                  </h3>
+                  <p className="mt-3 text-sm leading-6 text-ink/60">
+                    {advantage.description}
+                  </p>
+                </motion.article>
+              );
+            })}
+          </div>
+
+          {/* Disclaimer below grid */}
+          <p className="mt-8 max-w-4xl text-xs leading-5 text-ink/45">
+            AcdyOn facilitates access to programmes and academic pathways through
+            partner institutions. Final admissions, academic evaluation and degree
+            conferment decisions are made by the respective institutions.
+          </p>
+        </div>
       </div>
     </section>
   );

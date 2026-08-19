@@ -42,6 +42,7 @@ export default function IntroExperience({ onComplete }) {
   const autoScrollTimer = useRef(null);
   const mousePos = useRef({ x: 0, y: 0, tx: 0, ty: 0 });
   const completedRef = useRef(false);
+  const companyCardRef = useRef(null);
 
   useEffect(() => {
     phaseRef.current = phase;
@@ -152,20 +153,30 @@ export default function IntroExperience({ onComplete }) {
   useEffect(() => {
     if (phase !== "companyExpand") return;
     const start = performance.now();
-    const duration = 1800;
-    const maxScale =
-      Math.max(windowSize.w / dimensions.w, windowSize.h / dimensions.h) *
-      (windowSize.w < 768 ? 1.8 : 2.4);
+    const duration = 1600;
+    const maxScale = windowSize.w < 768 ? 2.4 : 3.0;
+
+    if (companyCardRef.current) {
+      companyCardRef.current.style.willChange = "transform";
+    }
 
     let rafId;
     const animate = () => {
       const elapsed = performance.now() - start;
       const t = Math.min(1, elapsed / duration);
       const eased = t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
-      setCompanyScale(1 + eased * (maxScale - 1));
+      const currentScale = 1 + eased * (maxScale - 1);
+
+      if (companyCardRef.current) {
+        companyCardRef.current.style.transform = `scale(${currentScale}) rotateZ(-1deg) translateZ(0)`;
+      }
+
       if (t < 1) {
         rafId = requestAnimationFrame(animate);
       } else {
+        if (companyCardRef.current) {
+          companyCardRef.current.style.willChange = "auto";
+        }
         setPhase("flash");
       }
     };
@@ -181,11 +192,11 @@ export default function IntroExperience({ onComplete }) {
     const t1 = setTimeout(() => {
       // start fading the whole overlay so it dissolves into the homepage
       setContainerOpacity(0);
-    }, 400);
+    }, 600);
 
     const t2 = setTimeout(() => {
       handleComplete();
-    }, 1000);
+    }, 1200);
 
     return () => {
       clearTimeout(t1);
@@ -247,10 +258,11 @@ export default function IntroExperience({ onComplete }) {
     <div
       className="fixed inset-0 flex items-center justify-center overflow-hidden select-none z-[1000]"
       style={{
-        background: "#0a1428",
+        background:
+          phase === "companyExpand" || phase === "flash" ? "#000000" : "#0a1428",
         color: "#f5f1ea",
         opacity: containerOpacity,
-        transition: "opacity 0.6s ease-out",
+        transition: "background-color 0.8s ease-out, opacity 0.6s ease-out",
       }}
     >
       {/* Skip Button */}
@@ -425,13 +437,16 @@ export default function IntroExperience({ onComplete }) {
           style={{ zIndex: 100 }}
         >
           <div
-            className="overflow-hidden flex flex-col items-center justify-center relative px-6 pb-8"
+            ref={companyCardRef}
+            className="overflow-hidden flex flex-col items-center justify-center relative px-8 md:px-12"
             style={{
               width: `${dimensions.w}px`,
               height: `${dimensions.h}px`,
               background:
-                "linear-gradient(135deg, #0a1428 0%, #12213a 40%, #1a2d4f 70%, #0a1428 100%)",
-              border: "1px solid rgba(201,169,97,0.4)",
+                phase === "companyExpand" || phase === "flash"
+                  ? "#000000"
+                  : "linear-gradient(135deg, #0a1428 0%, #0b1524 40%, #1a2c47 70%, #0a1428 100%)",
+              border: "1px solid rgba(184, 147, 90, 0.4)",
               opacity: companyOpacity,
               transform: `scale(${companyScale}) rotateZ(-1deg)`,
               clipPath: `polygon(
@@ -439,82 +454,115 @@ export default function IntroExperience({ onComplete }) {
                 calc(100% - 14px) 100%, 14px 100%, 0% calc(100% - 14px), 0% 14px
               )`,
               boxShadow: `
-                0 0 ${30 + companyScale * 20}px rgba(201,169,97,${Math.min(0.4, 0.15 + companyScale * 0.02)}),
-                0 0 ${60 + companyScale * 40}px rgba(200,69,31,${Math.min(0.25, 0.08 + companyScale * 0.015)}),
+                0 0 ${30 + companyScale * 20}px rgba(184, 147, 90, ${Math.min(0.4, 0.15 + companyScale * 0.02)}),
+                0 0 ${60 + companyScale * 40}px rgba(196, 69, 28, ${Math.min(0.25, 0.08 + companyScale * 0.015)}),
                 0 30px 80px rgba(0,0,0,0.6),
-                inset 0 1px 0 rgba(245,241,234,0.1)
+                inset 0 1px 0 rgba(250,247,240,0.1)
               `,
               transition: phase === "companyIn" ? "opacity 1s ease-out" : "none",
             }}
           >
+            {/* Top accent */}
             <div
               className="absolute top-0 left-0 right-0 h-[2px]"
               style={{
                 background:
-                  "linear-gradient(90deg, transparent, #c9a961, #c8451f, transparent)",
+                  "linear-gradient(90deg, transparent, #b8935a, #c4451c, transparent)",
               }}
             />
 
+            {/* Radial glow */}
             <div
               className="absolute inset-0"
               style={{
                 background:
-                  "radial-gradient(circle at 50% 40%, rgba(201,169,97,0.12) 0%, transparent 60%)",
+                  "radial-gradient(circle at 50% 40%, rgba(184, 147, 90, 0.12) 0%, transparent 60%)",
               }}
             />
 
+            {/* Grid pattern */}
             <div
               className="absolute inset-0 opacity-[0.04]"
               style={{
                 backgroundImage:
-                  "linear-gradient(rgba(245,241,234,0.15) 1px, transparent 1px), linear-gradient(90deg, rgba(245,241,234,0.15) 1px, transparent 1px)",
+                  "linear-gradient(rgba(250,247,240,0.15) 1px, transparent 1px), linear-gradient(90deg, rgba(250,247,240,0.15) 1px, transparent 1px)",
                 backgroundSize: "25px 25px",
               }}
             />
 
-            <div
-              className="text-[11px] uppercase tracking-[0.35em] font-medium mb-4 z-10"
-              style={{
-                color: "rgba(245,241,234,0.45)",
-                animation: "fadeUp 0.8s ease-out both",
-              }}
-            >
-              Here is the path
-            </div>
-
-            <div
-              className="flex flex-col items-center z-10"
-              style={{ animation: "fadeUp 0.8s ease-out 0.2s both" }}
-            >
-              <img
-                src="/acdyon-logo.webp"
-                alt="AcdyOn"
-                className="h-14 w-auto object-contain mb-2"
-                onError={(e) => {
-                  e.target.style.display = "none";
-                }}
-              />
+            {/* "Here is the path" text — erased during zoom */}
+            {!(phase === "companyExpand" || phase === "flash") && (
               <div
-                className="mt-2 font-bold tracking-[0.3em] text-center"
+                className="text-[11px] uppercase tracking-[0.35em] font-medium mb-4 z-10"
                 style={{
-                  color: "#f5f1ea",
-                  fontSize: "clamp(1.2rem, 3vw, 1.8rem)",
-                  textShadow: "0 0 12px rgba(201,169,97,0.3)",
+                  color: "rgba(250,247,240,0.45)",
+                  animation: "fadeUp 0.8s ease-out both",
                 }}
               >
-                AcdyOn
+                Here is the path
               </div>
+            )}
+
+            {/* Logo — Only element displayed during zoom */}
+            <div
+              className="flex flex-col items-center z-10 px-4"
+              style={{ animation: "fadeUp 0.8s ease-out 0.2s both" }}
+            >
+              <div className="relative mb-2 flex items-center justify-center">
+                <img
+                  src="/acdyon-logo.webp"
+                  alt="AcdyOn"
+                  className="h-16 w-auto md:h-20 object-contain transition-transform duration-500"
+                  style={{
+                    filter: "drop-shadow(0 0 24px rgba(184, 147, 90, 0.6))",
+                    transform:
+                      phase === "companyExpand" || phase === "flash"
+                        ? "scale(1.35)"
+                        : "scale(1)",
+                  }}
+                  onError={(e) => {
+                    e.target.style.display = "none";
+                    if (e.target.nextSibling) {
+                      e.target.nextSibling.style.display = "flex";
+                    }
+                  }}
+                />
+                <div
+                  className="hidden h-16 w-16 md:h-20 md:w-20 items-center justify-center bg-ink text-paper rounded-lg text-2xl font-bold"
+                >
+                  A
+                </div>
+              </div>
+
+              {/* Company Name — erased during zoom */}
+              {!(phase === "companyExpand" || phase === "flash") && (
+                <div
+                  className="mt-2 font-bold tracking-[0.35em] text-center"
+                  style={{
+                    color: "#faf7f0",
+                    fontSize: "clamp(1.4rem, 4vw, 2rem)",
+                    textShadow: "0 0 15px rgba(184, 147, 90, 0.35)",
+                    lineHeight: 1.2,
+                  }}
+                >
+                  AcdyOn
+                </div>
+              )}
             </div>
 
-            <div
-              className="text-[10px] tracking-[0.24em] mt-3 z-10"
-              style={{
-                color: "rgba(245,241,234,0.4)",
-                animation: "fadeUp 0.8s ease-out 0.4s both",
-              }}
-            >
-              EXECUTIVE EDUCATION · ACADEMIC RECOGNITION
-            </div>
+            {/* Tagline — erased during zoom */}
+            {!(phase === "companyExpand" || phase === "flash") && (
+              <div
+                className="text-[10px] tracking-[0.28em] mt-4 z-10 px-6 text-center"
+                style={{
+                  color: "rgba(250,247,240,0.45)",
+                  animation: "fadeUp 0.8s ease-out 0.4s both",
+                  lineHeight: 1.5,
+                }}
+              >
+                EXECUTIVE EDUCATION · ACADEMIC RECOGNITION
+              </div>
+            )}
           </div>
         </div>
       )}
