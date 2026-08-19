@@ -17,15 +17,19 @@ import Footer from "./components/Footer";
 import Chatbot from "./components/Chatbot";
 
 export default function App() {
-  const [showIntro, setShowIntro] = useState(true);
-  const [ready, setReady] = useState(false);
-
-  useEffect(() => {
-    if (sessionStorage.getItem("acdyon_intro_seen")) {
-      setShowIntro(false);
-      setReady(true);
+  const [showIntro, setShowIntro] = useState(() => {
+    if (typeof window !== "undefined") {
+      return !sessionStorage.getItem("acdyon_intro_seen");
     }
-  }, []);
+    return true;
+  });
+
+  const [ready, setReady] = useState(() => {
+    if (typeof window !== "undefined") {
+      return Boolean(sessionStorage.getItem("acdyon_intro_seen"));
+    }
+    return false;
+  });
 
   const done = () => {
     sessionStorage.setItem("acdyon_intro_seen", "true");

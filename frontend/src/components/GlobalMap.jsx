@@ -32,7 +32,7 @@ function LocationOverlayCard({ location, onClose }) {
       </div>
       <h4 className="font-semibold text-sm text-ink leading-tight">{location.name}</h4>
       <p className="text-[11px] text-ink/60 mt-0.5">{location.flag} {location.country}{location.city ? ` · ${location.city}` : ""}</p>
-      
+
       {location.description && (
         <p className="text-[11px] text-ink/75 mt-2 leading-relaxed">
           {location.description}
@@ -165,7 +165,7 @@ export default function GlobalMap() {
   return (
     <section id="network" className="px-3 md:px-4 py-16 md:py-24 bg-paper text-ink">
       <div className="max-w-[1280px] mx-auto">
-        
+
         {/* Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
           <div>
