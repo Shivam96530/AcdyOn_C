@@ -128,7 +128,7 @@ export const partnerInstitutions = [
   {
     id: "iiit-bangalore",
     name: "IIIT-Bangalore",
-    shortName: "IIIT-B",
+    shortName: "IIIT-Bangalore",
     institutionType: "Institute of Technology",
     country: "India",
     flag: "🇮🇳",
