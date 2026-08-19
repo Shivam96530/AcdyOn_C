@@ -36,8 +36,12 @@ const megaMenus = {
           },
         ],
       },
+    ],
+  },
+  Doctoral: {
+    columns: [
       {
-        heading: "Doctoral",
+        heading: "Doctoral Pathways",
         subheading:
           "Doctoral pathways and honorary recognition from globally accredited institutions.",
         chips: ["DBA", "PhD", "Honorary Doctorate"],
