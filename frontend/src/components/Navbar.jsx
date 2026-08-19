@@ -1,13 +1,15 @@
 import { useEffect, useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, ChevronDown, ArrowUpRight } from "lucide-react";
+import { Menu, X, ChevronDown, ArrowUpRight, Mail, Calendar } from "lucide-react";
 import CutButton from "./CutButton";
 
 /* ============================================================
-   Mega-menu structure (from official acdyon.com)
+   Mega-menu structure
+   Programs | Doctoral | Universities | Resources | Contact
    ============================================================ */
 const megaMenus = {
   Programs: {
+    width: "single",
     columns: [
       {
         heading: "Programs",
@@ -38,10 +40,12 @@ const megaMenus = {
       },
     ],
   },
+
   Doctoral: {
+    width: "double",
     columns: [
       {
-        heading: "Doctoral Pathways",
+        heading: "Doctoral",
         subheading:
           "Doctoral pathways and honorary recognition from globally accredited institutions.",
         chips: ["DBA", "PhD", "Honorary Doctorate"],
@@ -63,6 +67,13 @@ const megaMenus = {
             title: "LSMT DBA",
             description: "London-based research-driven DBA programme.",
           },
+        ],
+      },
+      {
+        heading: "More pathways",
+        subheading:
+          "Additional executive doctoral routes and honorary recognition.",
+        items: [
           {
             title: "EIMT DBA",
             description: "Swiss innovation-focused DBA for executives.",
@@ -71,11 +82,22 @@ const megaMenus = {
             title: "Birchwood DBA",
             description: "Accelerated 2-year US executive DBA.",
           },
+          {
+            title: "Honorary Doctorate",
+            description:
+              "Recognition for distinguished professional contribution.",
+          },
+          {
+            title: "Academic Recognition",
+            description: "Understanding international positioning and fit.",
+          },
         ],
       },
     ],
   },
+
   Universities: {
+    width: "single",
     columns: [
       {
         heading: "Universities",
@@ -98,7 +120,9 @@ const megaMenus = {
       },
     ],
   },
+
   Resources: {
+    width: "single",
     columns: [
       {
         heading: "Resources",
@@ -128,10 +152,29 @@ const megaMenus = {
   },
 };
 
-const simpleLinks = [
-  { label: "Home", href: "#top" },
-  { label: "About", href: "#about" },
-];
+/* Contact panel — different shape from mega-menus (contact card style) */
+const contactPanel = {
+  intro: "Talk to an academic advisor. Choose the way that works best for you.",
+  primaryActions: [
+    {
+      icon: Calendar,
+      title: "Book a Consultation",
+      description: "30-minute call with an academic advisor.",
+      href: "#contact",
+    },
+    {
+      icon: Mail,
+      title: "admissions@acdyon.com",
+      description: "Reply within one working day.",
+      href: "mailto:admissions@acdyon.com",
+    },
+  ],
+  offices: [
+    { flag: "🇺🇸", country: "United States", phone: "+1 213 534 7859" },
+    { flag: "🇬🇧", country: "United Kingdom", phone: "+44 7465 278021" },
+    { flag: "🇮🇳", country: "India", phone: "+91 9779914422" },
+  ],
+};
 
 /* ============================================================
    Mega Menu Dropdown Panel
@@ -140,7 +183,7 @@ function MegaMenuPanel({ menuKey, onLinkClick }) {
   const menu = megaMenus[menuKey];
   if (!menu) return null;
 
-  const columnCount = menu.columns.length;
+  const isDouble = menu.width === "double";
 
   return (
     <motion.div
@@ -149,18 +192,17 @@ function MegaMenuPanel({ menuKey, onLinkClick }) {
       exit={{ opacity: 0, y: 4 }}
       transition={{ duration: 0.18, ease: [0.16, 1, 0.3, 1] }}
       className={`absolute left-1/2 -translate-x-1/2 top-full mt-3 ${
-        columnCount === 1 ? "w-[420px]" : "w-[820px]"
+        isDouble ? "w-[820px]" : "w-[420px]"
       } bg-paper border border-line btn-cut-sm shadow-2xl overflow-hidden`}
       style={{ zIndex: 100 }}
     >
       <div
         className={`grid ${
-          columnCount === 2 ? "grid-cols-2" : "grid-cols-1"
-        } divide-x divide-line`}
+          isDouble ? "grid-cols-2 divide-x divide-line" : "grid-cols-1"
+        }`}
       >
         {menu.columns.map((column) => (
           <div key={column.heading} className="p-6">
-            {/* Column header */}
             <div className="mb-4">
               <p className="text-[10px] uppercase tracking-[0.24em] text-ink/45 font-semibold mb-1">
                 {column.heading}
@@ -170,7 +212,6 @@ function MegaMenuPanel({ menuKey, onLinkClick }) {
               </p>
             </div>
 
-            {/* Optional chips (like DBA/PhD/Honorary) */}
             {column.chips && (
               <div className="flex flex-wrap gap-1.5 mb-3">
                 {column.chips.map((chip) => (
@@ -184,7 +225,6 @@ function MegaMenuPanel({ menuKey, onLinkClick }) {
               </div>
             )}
 
-            {/* Optional sub-links (like Overview, upGrad ...) */}
             {column.subLinks && (
               <div className="flex flex-wrap gap-x-3 gap-y-1 mb-4 pb-3 border-b border-line">
                 {column.subLinks.map((link) => (
@@ -200,7 +240,6 @@ function MegaMenuPanel({ menuKey, onLinkClick }) {
               </div>
             )}
 
-            {/* Items */}
             <div className="space-y-2">
               {column.items.map((item) => (
                 <a
@@ -234,10 +273,92 @@ function MegaMenuPanel({ menuKey, onLinkClick }) {
 }
 
 /* ============================================================
+   Contact Panel (specialized layout, not a standard mega menu)
+   ============================================================ */
+function ContactMenuPanel({ onLinkClick }) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 8 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: 4 }}
+      transition={{ duration: 0.18, ease: [0.16, 1, 0.3, 1] }}
+      className="absolute right-0 top-full mt-3 w-[420px] bg-paper border border-line btn-cut-sm shadow-2xl overflow-hidden"
+      style={{ zIndex: 100 }}
+    >
+      <div className="p-6">
+        <div className="mb-4">
+          <p className="text-[10px] uppercase tracking-[0.24em] text-ink/45 font-semibold mb-1">
+            Contact
+          </p>
+          <p className="text-xs text-ink/60 leading-relaxed">
+            {contactPanel.intro}
+          </p>
+        </div>
+
+        {/* Primary actions */}
+        <div className="space-y-2 mb-5">
+          {contactPanel.primaryActions.map((action) => {
+            const Icon = action.icon;
+            return (
+              <a
+                key={action.title}
+                href={action.href}
+                onClick={onLinkClick}
+                className="group flex items-start gap-3 p-3 -mx-3 hover:bg-paper2 transition"
+              >
+                <span className="mt-0.5 grid h-8 w-8 place-items-center btn-cut-sm bg-ink text-paper shrink-0">
+                  <Icon size={14} />
+                </span>
+                <div className="flex-1 min-w-0">
+                  <p className="text-sm font-semibold text-ink group-hover:text-accent transition leading-tight">
+                    {action.title}
+                  </p>
+                  <p className="text-[11px] text-ink/60 mt-0.5 leading-snug">
+                    {action.description}
+                  </p>
+                </div>
+                <ArrowUpRight
+                  size={14}
+                  className="text-ink/30 group-hover:text-accent group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all shrink-0 mt-1"
+                />
+              </a>
+            );
+          })}
+        </div>
+
+        {/* Global offices */}
+        <div className="pt-4 border-t border-line">
+          <p className="text-[10px] uppercase tracking-[0.24em] text-ink/45 font-semibold mb-3">
+            Global offices
+          </p>
+          <div className="space-y-2">
+            {contactPanel.offices.map((office) => (
+              <a
+                key={office.country}
+                href={`tel:${office.phone.replace(/\s/g, "")}`}
+                className="flex items-center justify-between py-1.5 group"
+              >
+                <span className="flex items-center gap-2 text-sm text-ink/80">
+                  <span>{office.flag}</span>
+                  <span>{office.country}</span>
+                </span>
+                <span className="text-[11px] text-ink/55 group-hover:text-accent transition font-mono">
+                  {office.phone}
+                </span>
+              </a>
+            ))}
+          </div>
+        </div>
+      </div>
+    </motion.div>
+  );
+}
+
+/* ============================================================
    Main Navbar
    ============================================================ */
 export default function Navbar() {
-  const [openMenu, setOpenMenu] = useState(null);
+  const [openMenu, setOpenMenu] = useState(null); // key of menu or "Contact"
   const [mobileOpen, setMobileOpen] = useState(false);
   const [mobileExpanded, setMobileExpanded] = useState(null);
   const [scrolled, setScrolled] = useState(false);
@@ -253,7 +374,6 @@ export default function Navbar() {
     return () => clearTimeout(closeTimer.current);
   }, []);
 
-  // Hover intent — 120ms delay before closing prevents flicker
   const handleMenuEnter = (key) => {
     clearTimeout(closeTimer.current);
     setOpenMenu(key);
@@ -333,18 +453,34 @@ export default function Navbar() {
             </div>
           ))}
 
-          {/* About */}
-          {simpleLinks
-            .filter((l) => l.label !== "Home")
-            .map((link) => (
-              <a
-                key={link.label}
-                href={link.href}
-                className="px-3 py-2 text-sm text-ink/75 hover:text-ink transition"
-              >
-                {link.label}
-              </a>
-            ))}
+          {/* Contact trigger with special panel */}
+          <div
+            className="relative"
+            onMouseEnter={() => handleMenuEnter("Contact")}
+            onMouseLeave={handleMenuLeave}
+          >
+            <button
+              className={`flex items-center gap-1 px-3 py-2 text-sm transition ${
+                openMenu === "Contact" ? "text-ink font-medium" : "text-ink/75 hover:text-ink"
+              }`}
+              aria-expanded={openMenu === "Contact"}
+              aria-haspopup="true"
+            >
+              Contact
+              <ChevronDown
+                size={13}
+                className={`transition-transform duration-200 ${
+                  openMenu === "Contact" ? "rotate-180" : ""
+                }`}
+              />
+            </button>
+
+            <AnimatePresence>
+              {openMenu === "Contact" && (
+                <ContactMenuPanel onLinkClick={closeAll} />
+              )}
+            </AnimatePresence>
+          </div>
 
           {/* CTA */}
           <CutButton
@@ -383,7 +519,9 @@ export default function Navbar() {
               <div className="flex items-center justify-between mb-10">
                 <div className="flex items-center gap-2.5">
                   <img src="/acdyon-logo.webp" alt="AcdyOn Logo" className="h-7 w-auto object-contain" />
-                  <span className="text-lg font-semibold tracking-[-0.03em] text-paper">AcdyOn</span>
+                  <span className="text-lg font-semibold tracking-[-0.03em] text-paper">
+                    AcdyOn
+                  </span>
                 </div>
                 <button
                   onClick={closeAll}
@@ -510,31 +648,87 @@ export default function Navbar() {
                   );
                 })}
 
-                {/* About */}
-                <motion.a
+                {/* Contact accordion for mobile */}
+                <motion.div
                   initial={{ opacity: 0, x: -10 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.3 }}
-                  href="#about"
-                  onClick={closeAll}
-                  className="flex items-center justify-between py-4 border-b border-paper/10 text-xl font-display tracking-tight"
+                  className="border-b border-paper/10"
                 >
-                  About
-                  <ArrowUpRight size={18} className="text-paper/40" />
-                </motion.a>
+                  <button
+                    onClick={() =>
+                      setMobileExpanded(
+                        mobileExpanded === "Contact" ? null : "Contact"
+                      )
+                    }
+                    className="w-full flex items-center justify-between py-4 text-xl font-display tracking-tight text-left"
+                    aria-expanded={mobileExpanded === "Contact"}
+                  >
+                    Contact
+                    <ChevronDown
+                      size={18}
+                      className={`text-paper/50 transition-transform duration-200 ${
+                        mobileExpanded === "Contact" ? "rotate-180" : ""
+                      }`}
+                    />
+                  </button>
 
-                {/* Contact */}
-                <motion.a
-                  initial={{ opacity: 0, x: -10 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.35 }}
-                  href="#contact"
-                  onClick={closeAll}
-                  className="flex items-center justify-between py-4 border-b border-paper/10 text-xl font-display tracking-tight"
-                >
-                  Contact
-                  <ArrowUpRight size={18} className="text-paper/40" />
-                </motion.a>
+                  <AnimatePresence>
+                    {mobileExpanded === "Contact" && (
+                      <motion.div
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: "auto", opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={{ duration: 0.25 }}
+                        className="overflow-hidden"
+                      >
+                        <div className="pb-4 space-y-4 pl-3 border-l border-paper/15">
+                          <p className="text-xs text-paper/60 leading-relaxed">
+                            {contactPanel.intro}
+                          </p>
+                          <div className="space-y-3">
+                            <a
+                              href="#contact"
+                              onClick={closeAll}
+                              className="block"
+                            >
+                              <p className="text-sm font-semibold text-paper">
+                                Book a Consultation
+                              </p>
+                              <p className="text-[11px] text-paper/50">
+                                30-minute call with an academic advisor
+                              </p>
+                            </a>
+                            <a
+                              href="mailto:admissions@acdyon.com"
+                              onClick={closeAll}
+                              className="block"
+                            >
+                              <p className="text-sm font-semibold text-paper">
+                                admissions@acdyon.com
+                              </p>
+                              <p className="text-[11px] text-paper/50">
+                                Email admissions team
+                              </p>
+                            </a>
+                          </div>
+                          <div className="pt-2 space-y-1">
+                            {contactPanel.offices.map((office) => (
+                              <a
+                                key={office.country}
+                                href={`tel:${office.phone.replace(/\s/g, "")}`}
+                                className="flex items-center justify-between text-xs py-1"
+                              >
+                                <span>{office.flag} {office.country}</span>
+                                <span className="font-mono text-paper/70">{office.phone}</span>
+                              </a>
+                            ))}
+                          </div>
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </motion.div>
               </div>
             </div>
 
