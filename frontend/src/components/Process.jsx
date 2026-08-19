@@ -3,7 +3,7 @@ import { processSteps } from "../data/universities";
 
 export default function Process() {
   return (
-    <section className="py-24 bg-acdyon-black text-white" id="about">
+    <section className="py-24 bg-paper2 text-ink" id="about">
       <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -12,7 +12,7 @@ export default function Process() {
           className="text-center mb-16"
         >
           <h2 className="text-4xl md:text-5xl font-bold mb-4">How It Works</h2>
-          <p className="text-xl text-zinc-400 max-w-2xl mx-auto">
+          <p className="text-xl text-ink/65 max-w-2xl mx-auto">
             A guided process beginning with consultation rather than immediate enrolment.
           </p>
         </motion.div>
@@ -27,12 +27,12 @@ export default function Process() {
               transition={{ delay: index * 0.1 }}
               className="relative"
             >
-              <div className="text-6xl font-bold text-zinc-800 mb-4">{step.number}</div>
+              <div className="text-6xl font-bold text-ink/20 mb-4">{step.number}</div>
               <h3 className="text-2xl font-bold mb-3">{step.title}</h3>
-              <p className="text-zinc-400">{step.description}</p>
-              
+              <p className="text-ink/65">{step.description}</p>
+
               {index < processSteps.length - 1 && (
-                <div className="hidden lg:block absolute top-8 left-full w-full h-px bg-gradient-to-r from-zinc-800 to-transparent" />
+                <div className="hidden lg:block absolute top-8 left-full w-full h-px bg-gradient-to-r from-ink/25 to-transparent" />
               )}
             </motion.div>
           ))}
