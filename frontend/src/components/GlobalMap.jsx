@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { MapContainer, TileLayer, CircleMarker } from "react-leaflet";
 import { motion, AnimatePresence } from "framer-motion";
 import { X } from "lucide-react";
-import { officeLocations, partnerUniversities, regions } from "../data/locations";
+import { officeLocations, partnerInstitutions, regions } from "../data/locations";
 import CutButton from "./CutButton";
 import "leaflet/dist/leaflet.css";
 
@@ -20,7 +20,9 @@ function LocationOverlayCard({ location, onClose }) {
     >
       <div className="flex items-start justify-between mb-2">
         <span className="text-[9px] uppercase tracking-[0.2em] text-ink/50 font-semibold">
-          {isOffice ? "AcdyOn Office" : location.partnership || "Partner University"}
+          {isOffice
+            ? "AcdyOn Office"
+            : location.partnership || `Partner ${location.institutionType || "Institution"}`}
         </span>
         {onClose && (
           <button onClick={onClose} className="text-ink/40 hover:text-ink transition" aria-label="Close card">
@@ -74,7 +76,7 @@ function RegionalMap({ region }) {
     .filter((loc) => loc.region === region.id)
     .map((loc) => ({ ...loc, type: "office" }));
 
-  const regionUnis = partnerUniversities
+  const regionUnis = partnerInstitutions
     .filter((loc) => loc.region === region.id)
     .map((loc) => ({ ...loc, type: "university" }));
 
@@ -157,8 +159,8 @@ function RegionalMap({ region }) {
 export default function GlobalMap() {
   const [showAllUnis, setShowAllUnis] = useState(false);
   const totalOffices = officeLocations.length;
-  const totalUniversities = partnerUniversities.length;
-  const previewUnis = showAllUnis ? partnerUniversities : partnerUniversities.slice(0, 6);
+  const totalInstitutions = partnerInstitutions.length;
+  const previewUnis = showAllUnis ? partnerInstitutions : partnerInstitutions.slice(0, 6);
 
   return (
     <section id="network" className="px-3 md:px-4 py-16 md:py-24 bg-paper text-ink">
@@ -168,14 +170,14 @@ export default function GlobalMap() {
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
           <div>
             <p className="text-[10px] uppercase tracking-[0.28em] text-ink/50 mb-3 font-semibold">
-              University network
+              Partner network
             </p>
             <h2 className="font-display text-4xl md:text-6xl leading-[1.02] tracking-tight max-w-2xl">
-              A global academic network you can point to on a map.
+              A global academic network — universities, business schools, and institutes.
             </h2>
           </div>
           <p className="text-sm text-ink/65 max-w-sm">
-            {totalUniversities} partner institutions and {totalOffices} AcdyOn offices mapped across Americas, Europe, and Asia.
+            {totalInstitutions} partner institutions and {totalOffices} AcdyOn offices mapped across Americas, Europe, and Asia.
           </p>
         </div>
 
@@ -187,7 +189,6 @@ export default function GlobalMap() {
         </div>
 
         {/* Legend */}
-        {/* Legend */}
         <div className="flex flex-wrap gap-6 mt-8 text-xs font-medium text-ink/75">
           <div className="flex items-center gap-2">
             <span className="w-3.5 h-3.5 rounded-full bg-[#12213a] border border-[#f5f1ea] shadow-sm"></span>
@@ -195,7 +196,7 @@ export default function GlobalMap() {
           </div>
           <div className="flex items-center gap-2">
             <span className="w-3.5 h-3.5 rounded-full bg-[#c9a961] border border-[#f5f1ea] shadow-sm"></span>
-            <span>🎓 Direct partner universities</span>
+            <span>🎓 Direct partner institutions</span>
           </div>
           <div className="flex items-center gap-2">
             <span className="w-3.5 h-3.5 rounded-full bg-[#c8451f] border border-[#f5f1ea] shadow-sm"></span>

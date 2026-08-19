@@ -1,10 +1,10 @@
 import { motion } from "framer-motion";
-import { partnerUniversities } from "../data/locations";
+import { partnerInstitutions } from "../data/locations";
 
 export default function RecognitionTicker() {
-  const names = partnerUniversities
-    .filter((university) => !university.partnership)
-    .map((university) => university.shortName || university.name);
+  const names = partnerInstitutions
+    .filter((institution) => !institution.partnership)
+    .map((institution) => institution.shortName || institution.name);
 
   const tickerItems = [...names, ...names];
 

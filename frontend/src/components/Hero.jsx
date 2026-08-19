@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { ArrowRight, Sparkles } from "lucide-react";
 import CutButton from "./CutButton";
-import { partnerUniversities } from "../data/locations";
+import { partnerInstitutions } from "../data/locations";
 import { heroStats } from "../data/content";
 
 const demoEnrollments = [
@@ -13,11 +13,20 @@ const demoEnrollments = [
 
 export default function Hero() {
   const [enroll, setEnroll] = useState(0);
+  const [recognitionIndex, setRecognitionIndex] = useState(0);
 
   useEffect(() => {
     const id = setInterval(
       () => setEnroll((n) => (n + 1) % demoEnrollments.length),
       3800
+    );
+    return () => clearInterval(id);
+  }, []);
+
+  useEffect(() => {
+    const id = setInterval(
+      () => setRecognitionIndex((n) => (n + 1) % partnerInstitutions.length),
+      2600
     );
     return () => clearInterval(id);
   }, []);
@@ -52,13 +61,35 @@ export default function Hero() {
         {/* Top bar */}
         <div className="relative z-10 flex items-center justify-between px-6 md:px-12 pt-10">
           <div
-            className="anim-stagger flex items-center gap-3"
+            className="anim-stagger flex items-center gap-2.5"
             style={{ animationDelay: "0.2s" }}
           >
-            <span className="h-px w-8 bg-paper/50" />
-            <span className="text-[10px] uppercase tracking-[0.32em] text-paper/70">
-              Recognized at Kennedy University
+            <span className="text-[10px] uppercase tracking-[0.32em] text-paper/50 font-medium">
+              Recognized at
             </span>
+            <div className="relative h-4 flex items-center overflow-hidden min-w-[260px]">
+              {partnerInstitutions.map((uni, i) => {
+                const displayName =
+                  uni.shortName ||
+                  uni.name.replace(/\s+University$/i, "").trim();
+
+                return (
+                  <span
+                    key={uni.id}
+                    className="absolute left-0 text-[11px] uppercase tracking-[0.22em] text-paper font-semibold transition-all duration-700 ease-out whitespace-nowrap"
+                    style={{
+                      opacity: recognitionIndex === i ? 1 : 0,
+                      transform:
+                        recognitionIndex === i
+                          ? "translateY(0)"
+                          : "translateY(8px)",
+                    }}
+                  >
+                    {displayName}
+                  </span>
+                );
+              })}
+            </div>
           </div>
           <div
             className="hidden md:flex items-center gap-2 text-[10px] uppercase tracking-[0.28em] text-paper/70 anim-stagger"
@@ -185,7 +216,7 @@ export default function Hero() {
         {/* Bottom marquee inside the frame */}
         <div className="relative z-10 border-t border-paper/12 py-4 overflow-hidden">
           <div className="marquee-track flex w-max items-center gap-10 whitespace-nowrap">
-            {[...partnerUniversities, ...partnerUniversities].map((u, i) => (
+            {[...partnerInstitutions, ...partnerInstitutions].map((u, i) => (
               <div key={i} className="flex items-center gap-10 text-paper/55">
                 <span className="text-sm tracking-tight">
                   {u.shortName || u.name}

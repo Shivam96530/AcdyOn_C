@@ -42,10 +42,11 @@ export const officeLocations = [
   },
 ];
 
-export const partnerUniversities = [
+export const partnerInstitutions = [
   {
     id: "kennedy",
     name: "Kennedy University",
+    institutionType: "University",
     country: "United States",
     flag: "🇺🇸",
     category: "Business & Leadership",
@@ -58,6 +59,8 @@ export const partnerUniversities = [
   {
     id: "dunster",
     name: "Dunster Business School",
+    shortName: "Dunster",
+    institutionType: "Business School",
     country: "Switzerland",
     flag: "🇨🇭",
     category: "Executive Education",
@@ -71,6 +74,7 @@ export const partnerUniversities = [
     id: "lsmt",
     name: "London School of Management and Technology",
     shortName: "LSMT",
+    institutionType: "Business School",
     country: "United Kingdom",
     flag: "🇬🇧",
     category: "Research & Recognition",
@@ -84,6 +88,7 @@ export const partnerUniversities = [
     id: "eimt",
     name: "European Institute of Management and Technology",
     shortName: "EIMT",
+    institutionType: "Institute",
     country: "Switzerland",
     flag: "🇨🇭",
     category: "Executive Education",
@@ -96,6 +101,7 @@ export const partnerUniversities = [
   {
     id: "birchwood",
     name: "Birchwood University",
+    institutionType: "University",
     country: "Belgium",
     flag: "🇧🇪",
     category: "International Recognition",
@@ -109,6 +115,7 @@ export const partnerUniversities = [
     id: "lsbs",
     name: "London School of Business and Science",
     shortName: "LSBS",
+    institutionType: "Business School",
     country: "United Kingdom",
     flag: "🇬🇧",
     category: "Research & Recognition",
@@ -119,21 +126,37 @@ export const partnerUniversities = [
     region: "europe",
   },
   {
-    id: "iiit-iim",
-    name: "IIIT-Bangalore & IIM Udaipur",
+    id: "iiit-bangalore",
+    name: "IIIT-Bangalore",
+    shortName: "IIIT-B",
+    institutionType: "Institute of Technology",
     country: "India",
     flag: "🇮🇳",
     category: "Technology & Leadership",
-    description: "Dual-school institutions offering the CTO & AI Leadership Programme.",
+    description: "International Institute of Information Technology, Bangalore — deep-tech mastery within the CTO & AI Leadership Programme.",
     programs: ["CTO & AI Leadership"],
     partnership: "AcdyOn × upGrad",
-    coords: [12.9716, 77.5946],
+    coords: [12.8399, 77.6770],
+    region: "asia",
+  },
+  {
+    id: "iim-udaipur",
+    name: "IIM Udaipur",
+    institutionType: "Institute of Management",
+    country: "India",
+    flag: "🇮🇳",
+    category: "Boardroom Strategy",
+    description: "Indian Institute of Management Udaipur — boardroom strategy training within the CTO & AI Leadership Programme.",
+    programs: ["CTO & AI Leadership"],
+    partnership: "AcdyOn × upGrad",
+    coords: [24.5854, 73.7125],
     region: "asia",
   },
   {
     id: "ssbm",
     name: "Swiss School of Business and Management",
     shortName: "SSBM",
+    institutionType: "Business School",
     country: "Switzerland",
     flag: "🇨🇭",
     category: "Executive Education",
@@ -146,6 +169,7 @@ export const partnerUniversities = [
   {
     id: "edgewood",
     name: "Edgewood University",
+    institutionType: "University",
     country: "United States",
     flag: "🇺🇸",
     category: "Business & Leadership",
@@ -158,6 +182,7 @@ export const partnerUniversities = [
   {
     id: "esgci",
     name: "ESGCI, Paris",
+    institutionType: "Business School",
     country: "France",
     flag: "🇫🇷",
     category: "Leadership & AI",
@@ -170,6 +195,7 @@ export const partnerUniversities = [
   {
     id: "golden-gate",
     name: "Golden Gate University",
+    institutionType: "University",
     country: "United States",
     flag: "🇺🇸",
     category: "Emerging Technologies",
@@ -182,6 +208,8 @@ export const partnerUniversities = [
   {
     id: "rushford",
     name: "Rushford Business School",
+    shortName: "Rushford",
+    institutionType: "Business School",
     country: "Switzerland",
     flag: "🇨🇭",
     category: "Executive Education",
@@ -194,6 +222,7 @@ export const partnerUniversities = [
   {
     id: "waterloo",
     name: "University of Waterloo",
+    institutionType: "University",
     country: "Canada",
     flag: "🇨🇦",
     category: "Technology & Innovation",
