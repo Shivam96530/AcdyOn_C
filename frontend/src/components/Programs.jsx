@@ -12,7 +12,7 @@ const icons = {
 
 export default function Programs() {
   return (
-    <section className="py-24 bg-zinc-50" id="programs">
+    <section className="bg-paper text-ink px-3 md:px-4 py-20 md:py-24" id="programs">
       <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}

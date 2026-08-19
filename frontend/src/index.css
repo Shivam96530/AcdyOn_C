@@ -17,6 +17,24 @@
 
 html { scroll-behavior: smooth; }
 
+/* ============ Consistent section rhythm ============ */
+section {
+  scroll-margin-top: 100px;
+  position: relative;
+}
+
+/* Kill double padding when sections stack same color */
+section.bg-paper + section.bg-paper,
+section.bg-paper2 + section.bg-paper2 {
+  padding-top: 0;
+}
+
+/* Tighter transition when paper → paper2 or paper2 → paper */
+section.bg-paper + section.bg-paper2,
+section.bg-paper2 + section.bg-paper {
+  margin-top: -2rem;
+}
+
 body {
   font-family: 'Inter', system-ui, sans-serif;
   background: var(--paper);

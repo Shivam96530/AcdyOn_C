@@ -113,7 +113,7 @@ export default function FindYourPath() {
   const result = pathwayResults[answers.goal] || pathwayResults["Executive Advancement"];
 
   return (
-    <section className="py-24 bg-white" id="find-path">
+    <section className="bg-paper2 text-ink px-3 md:px-4 py-20 md:py-24" id="find-path">
       <div className="container mx-auto px-4">
         <div className="max-w-4xl mx-auto">
           <motion.div
