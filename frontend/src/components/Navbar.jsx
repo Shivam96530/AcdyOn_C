@@ -1,11 +1,12 @@
 import { useEffect, useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, ChevronDown, ArrowUpRight, Mail, Calendar } from "lucide-react";
+import { Menu, X, ChevronDown, ArrowUpRight } from "lucide-react";
 import CutButton from "./CutButton";
 
 /* ============================================================
    Mega-menu structure
-   Programs | Doctoral | Universities | Resources | Contact
+   Programs | Doctoral | Universities | Resources = have dropdowns
+   Home | About | Contact = simple scroll links (no dropdown)
    ============================================================ */
 const megaMenus = {
   Programs: {
@@ -41,19 +42,14 @@ const megaMenus = {
     ],
   },
 
+  // Doctoral — trimmed to a single floating column, no chips/sublinks clutter
   Doctoral: {
-    width: "double",
+    width: "single",
     columns: [
       {
-        heading: "Doctoral",
+        heading: "Doctoral pathways",
         subheading:
-          "Doctoral pathways and honorary recognition from globally accredited institutions.",
-        chips: ["DBA", "PhD", "Honorary Doctorate"],
-        subLinks: [
-          "Overview",
-          "upGrad: Leadership & AI",
-          "upGrad: Doctorate (DBA)",
-        ],
+          "Executive doctorates and honorary recognition from accredited partner institutions.",
         items: [
           {
             title: "Kennedy University DBA",
@@ -67,13 +63,6 @@ const megaMenus = {
             title: "LSMT DBA",
             description: "London-based research-driven DBA programme.",
           },
-        ],
-      },
-      {
-        heading: "More pathways",
-        subheading:
-          "Additional executive doctoral routes and honorary recognition.",
-        items: [
           {
             title: "EIMT DBA",
             description: "Swiss innovation-focused DBA for executives.",
@@ -86,10 +75,6 @@ const megaMenus = {
             title: "Honorary Doctorate",
             description:
               "Recognition for distinguished professional contribution.",
-          },
-          {
-            title: "Academic Recognition",
-            description: "Understanding international positioning and fit.",
           },
         ],
       },
@@ -152,204 +137,70 @@ const megaMenus = {
   },
 };
 
-/* Contact panel — different shape from mega-menus (contact card style) */
-const contactPanel = {
-  intro: "Talk to an academic advisor. Choose the way that works best for you.",
-  primaryActions: [
-    {
-      icon: Calendar,
-      title: "Book a Consultation",
-      description: "30-minute call with an academic advisor.",
-      href: "#contact",
-    },
-    {
-      icon: Mail,
-      title: "admissions@acdyon.com",
-      description: "Reply within one working day.",
-      href: "mailto:admissions@acdyon.com",
-    },
-  ],
-  offices: [
-    { flag: "🇺🇸", country: "United States", phone: "+1 213 534 7859" },
-    { flag: "🇬🇧", country: "United Kingdom", phone: "+44 7465 278021" },
-    { flag: "🇮🇳", country: "India", phone: "+91 9779914422" },
-  ],
+/* Map each mega-menu key to the section it should smooth-scroll to */
+const menuSectionMap = {
+  Programs: "#programs",
+  Doctoral: "#programs",
+  Universities: "#network",
+  Resources: "#faq",
 };
 
 /* ============================================================
-   Mega Menu Dropdown Panel
+   Floating Mega Menu Panel
    ============================================================ */
 function MegaMenuPanel({ menuKey, onLinkClick }) {
   const menu = megaMenus[menuKey];
   if (!menu) return null;
 
-  const isDouble = menu.width === "double";
-
   return (
     <motion.div
-      initial={{ opacity: 0, y: 8 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: 4 }}
+      initial={{ opacity: 0, y: 8, scale: 0.98 }}
+      animate={{ opacity: 1, y: 0, scale: 1 }}
+      exit={{ opacity: 0, y: 4, scale: 0.98 }}
       transition={{ duration: 0.18, ease: [0.16, 1, 0.3, 1] }}
-      className={`absolute left-1/2 -translate-x-1/2 top-full mt-3 ${
-        isDouble ? "w-[820px]" : "w-[420px]"
-      } bg-paper border border-line btn-cut-sm shadow-2xl overflow-hidden`}
+      className="absolute left-1/2 -translate-x-1/2 top-full mt-3 w-[380px] bg-paper border border-line btn-cut-sm shadow-2xl overflow-hidden"
       style={{ zIndex: 100 }}
     >
-      <div
-        className={`grid ${
-          isDouble ? "grid-cols-2 divide-x divide-line" : "grid-cols-1"
-        }`}
-      >
-        {menu.columns.map((column) => (
-          <div key={column.heading} className="p-6">
-            <div className="mb-4">
-              <p className="text-[10px] uppercase tracking-[0.24em] text-ink/45 font-semibold mb-1">
-                {column.heading}
-              </p>
-              <p className="text-xs text-ink/60 leading-relaxed">
-                {column.subheading}
-              </p>
-            </div>
-
-            {column.chips && (
-              <div className="flex flex-wrap gap-1.5 mb-3">
-                {column.chips.map((chip) => (
-                  <span
-                    key={chip}
-                    className="text-[10px] font-semibold bg-ink text-paper px-2 py-1 btn-cut-sm"
-                  >
-                    {chip}
-                  </span>
-                ))}
-              </div>
-            )}
-
-            {column.subLinks && (
-              <div className="flex flex-wrap gap-x-3 gap-y-1 mb-4 pb-3 border-b border-line">
-                {column.subLinks.map((link) => (
-                  <a
-                    key={link}
-                    href="#programs"
-                    onClick={onLinkClick}
-                    className="text-[11px] text-ink/60 hover:text-accent transition"
-                  >
-                    {link}
-                  </a>
-                ))}
-              </div>
-            )}
-
-            <div className="space-y-2">
-              {column.items.map((item) => (
-                <a
-                  key={item.title}
-                  href="#programs"
-                  onClick={onLinkClick}
-                  className="group block p-3 -mx-3 hover:bg-paper2 transition"
-                >
-                  <div className="flex items-start justify-between gap-3">
-                    <div className="flex-1 min-w-0">
-                      <p className="text-sm font-semibold text-ink group-hover:text-accent transition leading-tight">
-                        {item.title}
-                      </p>
-                      <p className="text-[11px] text-ink/60 mt-0.5 leading-snug">
-                        {item.description}
-                      </p>
-                    </div>
-                    <ArrowUpRight
-                      size={14}
-                      className="text-ink/30 group-hover:text-accent group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all shrink-0 mt-0.5"
-                    />
-                  </div>
-                </a>
-              ))}
-            </div>
+      {menu.columns.map((column) => (
+        <div key={column.heading} className="p-6">
+          {/* Column header */}
+          <div className="mb-4">
+            <p className="text-[10px] uppercase tracking-[0.24em] text-ink/45 font-semibold mb-1">
+              {column.heading}
+            </p>
+            <p className="text-xs text-ink/60 leading-relaxed">
+              {column.subheading}
+            </p>
           </div>
-        ))}
-      </div>
-    </motion.div>
-  );
-}
 
-/* ============================================================
-   Contact Panel (specialized layout, not a standard mega menu)
-   ============================================================ */
-function ContactMenuPanel({ onLinkClick }) {
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 8 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: 4 }}
-      transition={{ duration: 0.18, ease: [0.16, 1, 0.3, 1] }}
-      className="absolute right-0 top-full mt-3 w-[420px] bg-paper border border-line btn-cut-sm shadow-2xl overflow-hidden"
-      style={{ zIndex: 100 }}
-    >
-      <div className="p-6">
-        <div className="mb-4">
-          <p className="text-[10px] uppercase tracking-[0.24em] text-ink/45 font-semibold mb-1">
-            Contact
-          </p>
-          <p className="text-xs text-ink/60 leading-relaxed">
-            {contactPanel.intro}
-          </p>
-        </div>
-
-        {/* Primary actions */}
-        <div className="space-y-2 mb-5">
-          {contactPanel.primaryActions.map((action) => {
-            const Icon = action.icon;
-            return (
+          {/* Items */}
+          <div className="space-y-1">
+            {column.items.map((item) => (
               <a
-                key={action.title}
-                href={action.href}
+                key={item.title}
+                href={menuSectionMap[menuKey] || "#top"}
                 onClick={onLinkClick}
-                className="group flex items-start gap-3 p-3 -mx-3 hover:bg-paper2 transition"
+                className="group block p-3 -mx-3 hover:bg-paper2 transition rounded-sm"
               >
-                <span className="mt-0.5 grid h-8 w-8 place-items-center btn-cut-sm bg-ink text-paper shrink-0">
-                  <Icon size={14} />
-                </span>
-                <div className="flex-1 min-w-0">
-                  <p className="text-sm font-semibold text-ink group-hover:text-accent transition leading-tight">
-                    {action.title}
-                  </p>
-                  <p className="text-[11px] text-ink/60 mt-0.5 leading-snug">
-                    {action.description}
-                  </p>
+                <div className="flex items-start justify-between gap-3">
+                  <div className="flex-1 min-w-0">
+                    <p className="text-sm font-semibold text-ink group-hover:text-accent transition leading-tight">
+                      {item.title}
+                    </p>
+                    <p className="text-[11px] text-ink/60 mt-0.5 leading-snug">
+                      {item.description}
+                    </p>
+                  </div>
+                  <ArrowUpRight
+                    size={14}
+                    className="text-ink/30 group-hover:text-accent group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all shrink-0 mt-0.5"
+                  />
                 </div>
-                <ArrowUpRight
-                  size={14}
-                  className="text-ink/30 group-hover:text-accent group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all shrink-0 mt-1"
-                />
-              </a>
-            );
-          })}
-        </div>
-
-        {/* Global offices */}
-        <div className="pt-4 border-t border-line">
-          <p className="text-[10px] uppercase tracking-[0.24em] text-ink/45 font-semibold mb-3">
-            Global offices
-          </p>
-          <div className="space-y-2">
-            {contactPanel.offices.map((office) => (
-              <a
-                key={office.country}
-                href={`tel:${office.phone.replace(/\s/g, "")}`}
-                className="flex items-center justify-between py-1.5 group"
-              >
-                <span className="flex items-center gap-2 text-sm text-ink/80">
-                  <span>{office.flag}</span>
-                  <span>{office.country}</span>
-                </span>
-                <span className="text-[11px] text-ink/55 group-hover:text-accent transition font-mono">
-                  {office.phone}
-                </span>
               </a>
             ))}
           </div>
         </div>
-      </div>
+      ))}
     </motion.div>
   );
 }
@@ -358,7 +209,7 @@ function ContactMenuPanel({ onLinkClick }) {
    Main Navbar
    ============================================================ */
 export default function Navbar() {
-  const [openMenu, setOpenMenu] = useState(null); // key of menu or "Contact"
+  const [openMenu, setOpenMenu] = useState(null);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [mobileExpanded, setMobileExpanded] = useState(null);
   const [scrolled, setScrolled] = useState(false);
@@ -413,15 +264,16 @@ export default function Navbar() {
 
         {/* Desktop nav */}
         <nav className="hidden lg:flex items-center gap-1">
-          {/* Home */}
+          {/* Home — simple link */}
           <a
             href="#top"
+            onClick={closeAll}
             className="px-3 py-2 text-sm text-ink/75 hover:text-ink transition"
           >
             Home
           </a>
 
-          {/* Mega menu triggers */}
+          {/* Dropdown menus: Programs, Doctoral, Universities, Resources */}
           {Object.keys(megaMenus).map((key) => (
             <div
               key={key}
@@ -453,34 +305,23 @@ export default function Navbar() {
             </div>
           ))}
 
-          {/* Contact trigger with special panel */}
-          <div
-            className="relative"
-            onMouseEnter={() => handleMenuEnter("Contact")}
-            onMouseLeave={handleMenuLeave}
+          {/* About — simple scroll link, no dropdown */}
+          <a
+            href="#about"
+            onClick={closeAll}
+            className="px-3 py-2 text-sm text-ink/75 hover:text-ink transition"
           >
-            <button
-              className={`flex items-center gap-1 px-3 py-2 text-sm transition ${
-                openMenu === "Contact" ? "text-ink font-medium" : "text-ink/75 hover:text-ink"
-              }`}
-              aria-expanded={openMenu === "Contact"}
-              aria-haspopup="true"
-            >
-              Contact
-              <ChevronDown
-                size={13}
-                className={`transition-transform duration-200 ${
-                  openMenu === "Contact" ? "rotate-180" : ""
-                }`}
-              />
-            </button>
+            About
+          </a>
 
-            <AnimatePresence>
-              {openMenu === "Contact" && (
-                <ContactMenuPanel onLinkClick={closeAll} />
-              )}
-            </AnimatePresence>
-          </div>
+          {/* Contact — simple scroll link, no dropdown */}
+          <a
+            href="#contact"
+            onClick={closeAll}
+            className="px-3 py-2 text-sm text-ink/75 hover:text-ink transition"
+          >
+            Contact
+          </a>
 
           {/* CTA */}
           <CutButton
@@ -504,7 +345,7 @@ export default function Navbar() {
       </div>
 
       {/* ============================================================
-          Mobile menu (fullscreen overlay)
+          Mobile overlay
           ============================================================ */}
       <AnimatePresence>
         {mobileOpen && (
@@ -532,7 +373,6 @@ export default function Navbar() {
                 </button>
               </div>
 
-              {/* Nav items */}
               <div className="space-y-1">
                 {/* Home */}
                 <motion.a
@@ -547,7 +387,7 @@ export default function Navbar() {
                   <ArrowUpRight size={18} className="text-paper/40" />
                 </motion.a>
 
-                {/* Mega menu accordions */}
+                {/* Dropdown menus as accordions */}
                 {Object.entries(megaMenus).map(([key, menu], index) => {
                   const isExpanded = mobileExpanded === key;
                   return (
@@ -583,62 +423,24 @@ export default function Navbar() {
                             transition={{ duration: 0.25 }}
                             className="overflow-hidden"
                           >
-                            <div className="pb-4 space-y-4">
-                              {menu.columns.map((column) => (
-                                <div
-                                  key={column.heading}
-                                  className="pl-3 border-l border-paper/15"
+                            <div className="pb-4 space-y-1 pl-3 border-l border-paper/15">
+                              <p className="text-[10px] uppercase tracking-[0.24em] text-paper/45 font-semibold mb-2">
+                                {menu.columns[0].heading}
+                              </p>
+                              {menu.columns[0].items.map((item) => (
+                                <a
+                                  key={item.title}
+                                  href={menuSectionMap[key] || "#top"}
+                                  onClick={closeAll}
+                                  className="block py-2"
                                 >
-                                  <p className="text-[10px] uppercase tracking-[0.24em] text-paper/45 font-semibold mb-2">
-                                    {column.heading}
+                                  <p className="text-sm font-semibold text-paper leading-tight">
+                                    {item.title}
                                   </p>
-
-                                  {column.chips && (
-                                    <div className="flex flex-wrap gap-1.5 mb-2">
-                                      {column.chips.map((chip) => (
-                                        <span
-                                          key={chip}
-                                          className="text-[10px] font-semibold bg-paper text-ink px-2 py-0.5 btn-cut-sm"
-                                        >
-                                          {chip}
-                                        </span>
-                                      ))}
-                                    </div>
-                                  )}
-
-                                  {column.subLinks && (
-                                    <div className="flex flex-wrap gap-x-3 gap-y-1 mb-2 pb-2 border-b border-paper/10">
-                                      {column.subLinks.map((link) => (
-                                        <a
-                                          key={link}
-                                          href="#programs"
-                                          onClick={closeAll}
-                                          className="text-[11px] text-paper/60 hover:text-paper transition"
-                                        >
-                                          {link}
-                                        </a>
-                                      ))}
-                                    </div>
-                                  )}
-
-                                  <div className="space-y-2">
-                                    {column.items.map((item) => (
-                                      <a
-                                        key={item.title}
-                                        href="#programs"
-                                        onClick={closeAll}
-                                        className="block py-1.5"
-                                      >
-                                        <p className="text-sm font-semibold text-paper leading-tight">
-                                          {item.title}
-                                        </p>
-                                        <p className="text-[11px] text-paper/50 mt-0.5 leading-snug">
-                                          {item.description}
-                                        </p>
-                                      </a>
-                                    ))}
-                                  </div>
-                                </div>
+                                  <p className="text-[11px] text-paper/50 mt-0.5 leading-snug">
+                                    {item.description}
+                                  </p>
+                                </a>
                               ))}
                             </div>
                           </motion.div>
@@ -648,91 +450,35 @@ export default function Navbar() {
                   );
                 })}
 
-                {/* Contact accordion for mobile */}
-                <motion.div
+                {/* About — simple scroll link */}
+                <motion.a
                   initial={{ opacity: 0, x: -10 }}
                   animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.3 }}
-                  className="border-b border-paper/10"
+                  transition={{ delay: 0.35 }}
+                  href="#about"
+                  onClick={closeAll}
+                  className="flex items-center justify-between py-4 border-b border-paper/10 text-xl font-display tracking-tight"
                 >
-                  <button
-                    onClick={() =>
-                      setMobileExpanded(
-                        mobileExpanded === "Contact" ? null : "Contact"
-                      )
-                    }
-                    className="w-full flex items-center justify-between py-4 text-xl font-display tracking-tight text-left"
-                    aria-expanded={mobileExpanded === "Contact"}
-                  >
-                    Contact
-                    <ChevronDown
-                      size={18}
-                      className={`text-paper/50 transition-transform duration-200 ${
-                        mobileExpanded === "Contact" ? "rotate-180" : ""
-                      }`}
-                    />
-                  </button>
+                  About
+                  <ArrowUpRight size={18} className="text-paper/40" />
+                </motion.a>
 
-                  <AnimatePresence>
-                    {mobileExpanded === "Contact" && (
-                      <motion.div
-                        initial={{ height: 0, opacity: 0 }}
-                        animate={{ height: "auto", opacity: 1 }}
-                        exit={{ height: 0, opacity: 0 }}
-                        transition={{ duration: 0.25 }}
-                        className="overflow-hidden"
-                      >
-                        <div className="pb-4 space-y-4 pl-3 border-l border-paper/15">
-                          <p className="text-xs text-paper/60 leading-relaxed">
-                            {contactPanel.intro}
-                          </p>
-                          <div className="space-y-3">
-                            <a
-                              href="#contact"
-                              onClick={closeAll}
-                              className="block"
-                            >
-                              <p className="text-sm font-semibold text-paper">
-                                Book a Consultation
-                              </p>
-                              <p className="text-[11px] text-paper/50">
-                                30-minute call with an academic advisor
-                              </p>
-                            </a>
-                            <a
-                              href="mailto:admissions@acdyon.com"
-                              onClick={closeAll}
-                              className="block"
-                            >
-                              <p className="text-sm font-semibold text-paper">
-                                admissions@acdyon.com
-                              </p>
-                              <p className="text-[11px] text-paper/50">
-                                Email admissions team
-                              </p>
-                            </a>
-                          </div>
-                          <div className="pt-2 space-y-1">
-                            {contactPanel.offices.map((office) => (
-                              <a
-                                key={office.country}
-                                href={`tel:${office.phone.replace(/\s/g, "")}`}
-                                className="flex items-center justify-between text-xs py-1"
-                              >
-                                <span>{office.flag} {office.country}</span>
-                                <span className="font-mono text-paper/70">{office.phone}</span>
-                              </a>
-                            ))}
-                          </div>
-                        </div>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-                </motion.div>
+                {/* Contact — simple scroll link */}
+                <motion.a
+                  initial={{ opacity: 0, x: -10 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.4 }}
+                  href="#contact"
+                  onClick={closeAll}
+                  className="flex items-center justify-between py-4 border-b border-paper/10 text-xl font-display tracking-tight"
+                >
+                  Contact
+                  <ArrowUpRight size={18} className="text-paper/40" />
+                </motion.a>
               </div>
             </div>
 
-            {/* Mobile CTA (fixed bottom) */}
+            {/* Fixed bottom CTA */}
             <div className="fixed inset-x-0 bottom-0 p-6 bg-ink border-t border-paper/10">
               <CutButton
                 href="#contact"
