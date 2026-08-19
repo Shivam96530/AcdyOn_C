@@ -7,53 +7,77 @@ import CutButton from "./CutButton";
 import "leaflet/dist/leaflet.css";
 
 // Location Card Overlay (Fixed inside map container to prevent clipping/hiding)
-function LocationOverlayCard({ location, onClose }) {
+function LocationOverlayCard({ location, isPinned, onClose }) {
   const isOffice = location.type === "office";
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 10 }}
+      initial={{ opacity: 0, y: -6 }}
       animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: 10 }}
-      transition={{ duration: 0.15 }}
-      className="absolute bottom-3 left-3 right-3 z-[1000] pointer-events-auto bg-paper/95 backdrop-blur-md border border-line p-4 btn-cut-sm shadow-xl"
+      exit={{ opacity: 0, y: -6 }}
+      transition={{ duration: 0.18, ease: [0.16, 1, 0.3, 1] }}
+      className="absolute top-16 left-4 z-[1000] pointer-events-none"
+      style={{ width: '280px' }}
     >
-      <div className="flex items-start justify-between mb-2">
-        <span className="text-[9px] uppercase tracking-[0.2em] text-ink/50 font-semibold">
-          {isOffice
-            ? "AcdyOn Office"
-            : location.partnership || `Partner ${location.institutionType || "Institution"}`}
-        </span>
-        {onClose && (
-          <button onClick={onClose} className="text-ink/40 hover:text-ink transition" aria-label="Close card">
-            <X size={13} />
-          </button>
+      <div className="bg-paper/97 backdrop-blur-md border border-line p-4 btn-cut-sm shadow-xl">
+        <div className="flex items-start justify-between mb-2">
+          <span className="text-[9px] uppercase tracking-[0.2em] text-ink/55 font-semibold">
+            {isOffice
+              ? "AcdyOn Office"
+              : location.partnership || `Partner ${location.institutionType || "Institution"}`}
+          </span>
+          {isPinned && (
+            <button
+              onClick={onClose}
+              className="text-ink/40 hover:text-ink transition pointer-events-auto -mt-1 -mr-1 p-1"
+              aria-label="Close card"
+            >
+              <X size={13} />
+            </button>
+          )}
+        </div>
+
+        <h4 className="font-semibold text-sm text-ink leading-tight">
+          {location.name}
+        </h4>
+        <p className="text-[11px] text-ink/60 mt-0.5">
+          {location.flag} {location.country}
+          {location.city ? ` · ${location.city}` : ""}
+        </p>
+
+        {location.description && (
+          <p className="text-[11px] text-ink/75 mt-2 leading-relaxed">
+            {location.description}
+          </p>
+        )}
+
+        {location.programs && (
+          <div className="flex flex-wrap gap-1 mt-2.5">
+            {location.programs.map((p) => (
+              <span
+                key={p}
+                className="text-[9px] bg-paper2 px-2 py-0.5 text-ink/70 font-medium"
+              >
+                {p}
+              </span>
+            ))}
+          </div>
+        )}
+
+        {isOffice && (
+          <div className="mt-2 pt-2 border-t border-line text-[10px] text-ink/65 space-y-0.5">
+            <p>{location.phone}</p>
+            <p>{location.email}</p>
+            <p className="text-ink/45 leading-normal">{location.address}</p>
+          </div>
+        )}
+
+        {!isPinned && (
+          <p className="mt-2 pt-2 border-t border-line text-[9px] uppercase tracking-widest text-ink/35">
+            Click pin to keep open
+          </p>
         )}
       </div>
-      <h4 className="font-semibold text-sm text-ink leading-tight">{location.name}</h4>
-      <p className="text-[11px] text-ink/60 mt-0.5">{location.flag} {location.country}{location.city ? ` · ${location.city}` : ""}</p>
-
-      {location.description && (
-        <p className="text-[11px] text-ink/75 mt-2 leading-relaxed">
-          {location.description}
-        </p>
-      )}
-
-      {location.programs && (
-        <div className="flex flex-wrap gap-1 mt-2.5">
-          {location.programs.map((p) => (
-            <span key={p} className="text-[9px] bg-paper2 px-2 py-0.5 text-ink/70 font-medium">{p}</span>
-          ))}
-        </div>
-      )}
-
-      {isOffice && (
-        <div className="mt-2 pt-2 border-t border-line text-[10px] text-ink/65 space-y-0.5">
-          <p>{location.phone}</p>
-          <p>{location.email}</p>
-          <p className="text-ink/45 leading-normal">{location.address}</p>
-        </div>
-      )}
     </motion.div>
   );
 }
@@ -146,7 +170,8 @@ function RegionalMap({ region }) {
           {displayLocation && (
             <LocationOverlayCard
               location={displayLocation}
-              onClose={pinnedLocation ? () => setPinnedLocation(null) : null}
+              isPinned={Boolean(pinnedLocation)}
+              onClose={() => setPinnedLocation(null)}
             />
           )}
         </AnimatePresence>
