@@ -68,7 +68,7 @@ export default function Navbar() {
         <div className="fixed inset-0 z-[70] bg-ink text-paper p-6 lg:hidden">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <img src="/acdyon-logo.webp" alt="AcdyOn Logo" className="h-7 w-auto object-contain brightness-0 invert" />
+              <img src="/acdyon-logo.webp" alt="AcdyOn Logo" className="h-7 w-auto object-contain" />
               <span className="text-lg font-semibold tracking-[-0.03em] text-paper">AcdyOn</span>
             </div>
             <button onClick={() => setOpen(false)} className="grid h-10 w-10 place-items-center btn-cut-sm bg-paper text-ink">

@@ -26,7 +26,7 @@ export default function Footer() {
         <div className="grid gap-12 lg:grid-cols-[1.2fr_0.7fr_1.4fr]">
           <div>
             <div className="flex items-center gap-3">
-              <img src="/acdyon-logo.webp" alt="AcdyOn Logo" className="h-9 w-auto object-contain brightness-0 invert" />
+              <img src="/acdyon-logo.webp" alt="AcdyOn Logo" className="h-9 w-auto object-contain" />
               <span className="text-2xl font-semibold tracking-[-0.06em]">
                 AcdyOn
               </span>
