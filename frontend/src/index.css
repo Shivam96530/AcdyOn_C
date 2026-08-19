@@ -15,7 +15,9 @@
   --gold: #c9a961;
 }
 
-html { scroll-behavior: smooth; }
+html {
+  scroll-behavior: smooth;
+}
 
 body {
   font-family: 'Inter', system-ui, sans-serif;
@@ -26,36 +28,35 @@ body {
   overflow-x: hidden;
 }
 
-::selection { background: var(--ink); color: var(--paper); }
+::selection {
+  background: var(--ink);
+  color: var(--paper);
+}
 
 /* ============ Octagonal clip-path buttons ============ */
 .btn-cut {
-  clip-path: polygon(
-    12px 0%, calc(100% - 12px) 0%, 100% 12px, 100% calc(100% - 12px),
-    calc(100% - 12px) 100%, 12px 100%, 0% calc(100% - 12px), 0% 12px
-  );
+  clip-path: polygon(12px 0%, calc(100% - 12px) 0%, 100% 12px, 100% calc(100% - 12px),
+      calc(100% - 12px) 100%, 12px 100%, 0% calc(100% - 12px), 0% 12px);
 }
 
 .btn-cut-border {
   position: relative;
   background: currentColor;
-  clip-path: polygon(
-    12px 0%, calc(100% - 12px) 0%, 100% 12px, 100% calc(100% - 12px),
-    calc(100% - 12px) 100%, 12px 100%, 0% calc(100% - 12px), 0% 12px
-  );
+  clip-path: polygon(12px 0%, calc(100% - 12px) 0%, 100% 12px, 100% calc(100% - 12px),
+      calc(100% - 12px) 100%, 12px 100%, 0% calc(100% - 12px), 0% 12px);
 }
+
 .btn-cut-border::before {
   content: '';
   position: absolute;
   inset: 1.5px;
   background: var(--paper);
-  clip-path: polygon(
-    11px 0%, calc(100% - 11px) 0%, 100% 11px, 100% calc(100% - 11px),
-    calc(100% - 11px) 100%, 11px 100%, 0% calc(100% - 11px), 0% 11px
-  );
+  clip-path: polygon(11px 0%, calc(100% - 11px) 0%, 100% 11px, 100% calc(100% - 11px),
+      calc(100% - 11px) 100%, 11px 100%, 0% calc(100% - 11px), 0% 11px);
   z-index: 0;
 }
-.btn-cut-border > * {
+
+.btn-cut-border>* {
   position: relative;
   z-index: 1;
 }
@@ -65,10 +66,8 @@ body {
 }
 
 .btn-cut-sm {
-  clip-path: polygon(
-    8px 0%, calc(100% - 8px) 0%, 100% 8px, 100% calc(100% - 8px),
-    calc(100% - 8px) 100%, 8px 100%, 0% calc(100% - 8px), 0% 8px
-  );
+  clip-path: polygon(8px 0%, calc(100% - 8px) 0%, 100% 8px, 100% calc(100% - 8px),
+      calc(100% - 8px) 100%, 8px 100%, 0% calc(100% - 8px), 0% 8px);
 }
 
 /* ============ Glass container ============ */
@@ -94,41 +93,69 @@ body {
 
 /* ============ Entrance animations ============ */
 @keyframes fadeUp {
-  from { opacity: 0; transform: translateY(24px); }
-  to   { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
+
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to   { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
+
 @keyframes maskLine {
-  from { transform: translateY(110%); }
-  to   { transform: translateY(0); }
+  from {
+    transform: translateY(110%);
+  }
+
+  to {
+    transform: translateY(0);
+  }
 }
 
 .anim-stagger {
   opacity: 0;
   animation: fadeUp 0.85s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
+
 .anim-fade {
   opacity: 0;
   animation: fadeIn 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
+
 .line-mask {
   overflow: hidden;
   padding-bottom: 6px;
   margin-bottom: -6px;
 }
-.line-mask > * {
+
+.line-mask>* {
   display: block;
   animation: maskLine 1s cubic-bezier(0.22, 0.85, 0.24, 1) forwards;
 }
 
 /* ============ Marquee ============ */
 @keyframes marquee {
-  from { transform: translateX(0); }
-  to   { transform: translateX(-50%); }
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
 }
+
 .marquee-track {
   animation: marquee 34s linear infinite;
 }
@@ -137,6 +164,7 @@ body {
 .map-airplane .leaflet-container {
   cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><text x="50%" y="50%" font-size="18" text-anchor="middle" dominant-baseline="central">✈️</text></svg>') 12 12, auto !important;
 }
+
 .map-airplane .leaflet-interactive {
   cursor: pointer !important;
 }
@@ -148,7 +176,10 @@ body {
 
 /* ============ Reduced motion ============ */
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
+
+  *,
+  *::before,
+  *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;

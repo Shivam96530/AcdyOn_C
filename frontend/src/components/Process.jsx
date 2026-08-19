@@ -30,7 +30,7 @@ export default function Process() {
               <div className="text-6xl font-bold text-zinc-800 mb-4">{step.number}</div>
               <h3 className="text-2xl font-bold mb-3">{step.title}</h3>
               <p className="text-zinc-400">{step.description}</p>
-              
+
               {index < processSteps.length - 1 && (
                 <div className="hidden lg:block absolute top-8 left-full w-full h-px bg-gradient-to-r from-zinc-800 to-transparent" />
               )}
