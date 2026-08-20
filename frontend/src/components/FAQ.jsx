@@ -7,7 +7,7 @@ export default function FAQ() {
   const [active, setActive] = useState(0);
 
   return (
-    <section className="bg-[#f4f2ee] py-24">
+    <section id="faq" className="bg-paper2 py-24">
       <div className="mx-auto max-w-[1000px] px-5 md:px-8">
         <div className="text-center">
           <p className="text-xs uppercase tracking-[0.2em] text-black/45">FAQ</p>

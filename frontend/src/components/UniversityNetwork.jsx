@@ -5,7 +5,7 @@ import InstitutionLogo from "./InstitutionLogo";
 
 export default function UniversityNetwork() {
   return (
-    <section className="bg-white py-24">
+    <section id="university-network" className="bg-white py-24">
       <div className="mx-auto max-w-[1280px] px-5 md:px-8">
         <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
           <div className="max-w-3xl">

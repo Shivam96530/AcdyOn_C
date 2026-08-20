@@ -140,7 +140,7 @@ const megaMenus = {
 /* Map each mega-menu key to the section it should smooth-scroll to */
 const menuSectionMap = {
   Programs: "#programs",
-  Doctoral: "#programs",
+  Doctoral: "#university-network",
   Universities: "#network",
   Resources: "#faq",
 };
@@ -178,7 +178,7 @@ function MegaMenuPanel({ menuKey, onLinkClick }) {
             {column.items.map((item) => (
               <a
                 key={item.title}
-                href={menuSectionMap[menuKey] || "#top"}
+                href={menuSectionMap[menuKey] || "#programs"}
                 onClick={onLinkClick}
                 className="group block p-3 -mx-3 hover:bg-paper2 transition rounded-sm"
               >
@@ -249,6 +249,15 @@ export default function Navbar() {
     setMobileExpanded(null);
   };
 
+  const scrollToTop = (e) => {
+    if (e) e.preventDefault();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    if (window.location.hash) {
+      window.history.replaceState(null, "", window.location.pathname);
+    }
+    closeAll();
+  };
+
   return (
     <header className="fixed inset-x-0 top-0 z-50 px-3 md:px-4 pt-3 md:pt-4">
       <div
@@ -260,9 +269,9 @@ export default function Navbar() {
       >
         {/* Logo */}
         <a
-          href="#top"
-          onClick={closeAll}
-          className="flex items-center gap-2.5 text-ink shrink-0"
+          href="/"
+          onClick={scrollToTop}
+          className="flex items-center gap-2.5 text-ink shrink-0 cursor-pointer"
           aria-label="AcdyOn home"
         >
           <img src="/acdyon-logo.webp" alt="AcdyOn Logo" className="h-9 w-auto object-contain" />
@@ -273,11 +282,11 @@ export default function Navbar() {
 
         {/* Desktop nav */}
         <nav className="hidden lg:flex items-center gap-1">
-          {/* Home — simple link */}
+          {/* Home — clean link */}
           <a
-            href="#top"
-            onClick={closeAll}
-            className="px-3 py-2 text-sm text-ink/75 hover:text-ink transition"
+            href="/"
+            onClick={scrollToTop}
+            className="px-3 py-2 text-sm text-ink/75 hover:text-ink transition cursor-pointer"
           >
             Home
           </a>
@@ -388,9 +397,9 @@ export default function Navbar() {
                   initial={{ opacity: 0, x: -10 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.05 }}
-                  href="#top"
-                  onClick={closeAll}
-                  className="flex items-center justify-between py-4 border-b border-paper/10 text-xl font-display tracking-tight"
+                  href="/"
+                  onClick={scrollToTop}
+                  className="flex items-center justify-between py-4 border-b border-paper/10 text-xl font-display tracking-tight cursor-pointer"
                 >
                   Home
                   <ArrowUpRight size={18} className="text-paper/40" />
@@ -439,7 +448,7 @@ export default function Navbar() {
                               {menu.columns[0].items.map((item) => (
                                 <a
                                   key={item.title}
-                                  href={menuSectionMap[key] || "#top"}
+                                  href={menuSectionMap[key] || "#programs"}
                                   onClick={closeAll}
                                   className="block py-2"
                                 >

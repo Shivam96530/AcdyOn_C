@@ -12,6 +12,18 @@ const exploreLinks = [
   "Contact Us",
 ];
 
+const exploreLinksMap = {
+  Home: "/",
+  "About AcdyOn": "#about",
+  Programs: "#programs",
+  Universities: "#network",
+  "Doctoral Pathways": "#programs",
+  "AcdyOn × upGrad": "#programs",
+  "Honorary Recognition": "#programs",
+  "AI & Technology": "#ai",
+  "Contact Us": "#contact",
+};
+
 const legalLinks = [
   "Privacy Policy",
   "Terms & Conditions",
@@ -20,17 +32,29 @@ const legalLinks = [
 ];
 
 export default function Footer() {
+  const scrollToTop = (e) => {
+    if (e) e.preventDefault();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    if (window.location.hash) {
+      window.history.replaceState(null, "", window.location.pathname);
+    }
+  };
+
   return (
     <footer className="bg-[#090909] py-16 text-white">
       <div className="mx-auto max-w-[1280px] px-5 md:px-8">
         <div className="grid gap-12 lg:grid-cols-[1.2fr_0.7fr_1.4fr]">
           <div>
-            <div className="flex items-center gap-3">
+            <a
+              href="/"
+              onClick={scrollToTop}
+              className="flex items-center gap-3 cursor-pointer"
+            >
               <img src="/acdyon-logo.webp" alt="AcdyOn Logo" className="h-9 w-auto object-contain" />
               <span className="text-2xl font-semibold tracking-[-0.06em]">
                 AcdyOn
               </span>
-            </div>
+            </a>
 
             <p className="mt-6 max-w-md text-sm leading-7 text-white/55">
               AcdyOn provides access to globally recognized executive education,
@@ -50,9 +74,22 @@ export default function Footer() {
             <ul className="mt-5 space-y-3">
               {exploreLinks.map((link) => (
                 <li key={link}>
-                  <a href="#top" className="text-sm text-white/65 transition hover:text-white">
-                    {link}
-                  </a>
+                  {link === "Home" ? (
+                    <a
+                      href="/"
+                      onClick={scrollToTop}
+                      className="text-sm text-white/65 transition hover:text-white cursor-pointer"
+                    >
+                      {link}
+                    </a>
+                  ) : (
+                    <a
+                      href={exploreLinksMap[link] || "#"}
+                      className="text-sm text-white/65 transition hover:text-white"
+                    >
+                      {link}
+                    </a>
+                  )}
                 </li>
               ))}
             </ul>
@@ -110,9 +147,9 @@ export default function Footer() {
           <div className="flex flex-col justify-between gap-6 md:flex-row">
             <div className="flex flex-wrap gap-x-5 gap-y-2">
               {legalLinks.map((link) => (
-                <a key={link} href="#top" className="text-xs text-white/45 hover:text-white">
+                <span key={link} className="text-xs text-white/45 hover:text-white cursor-pointer">
                   {link}
-                </a>
+                </span>
               ))}
             </div>
 
