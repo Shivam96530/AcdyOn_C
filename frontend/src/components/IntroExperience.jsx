@@ -259,7 +259,7 @@ export default function IntroExperience({ onComplete }) {
       className="fixed inset-0 flex items-center justify-center overflow-hidden select-none z-[1000]"
       style={{
         background:
-          phase === "companyExpand" || phase === "flash" ? "#000000" : "#0a1428",
+          phase === "companyExpand" || phase === "flash" ? "#0d1a30" : "#0a1428",
         color: "#f5f1ea",
         opacity: containerOpacity,
         transition: "background-color 0.8s ease-out, opacity 0.6s ease-out",
@@ -444,7 +444,7 @@ export default function IntroExperience({ onComplete }) {
               height: `${dimensions.h}px`,
               background:
                 phase === "companyExpand" || phase === "flash"
-                  ? "#000000"
+                  ? "#0d1a30"
                   : "linear-gradient(135deg, #0a1428 0%, #0b1524 40%, #1a2c47 70%, #0a1428 100%)",
               border: "1px solid rgba(184, 147, 90, 0.4)",
               opacity: companyOpacity,
