@@ -40,9 +40,21 @@ function LocationOverlayCard({ location, isPinned, onClose }) {
         <h4 className="font-semibold text-sm text-ink leading-tight">
           {location.name}
         </h4>
-        <p className="text-[11px] text-ink/60 mt-0.5">
-          {location.flag} {location.country}
-          {location.city ? ` · ${location.city}` : ""}
+        <p className="text-[11px] text-ink/60 mt-0.5 flex items-center gap-1.5">
+          {location.flagUrl ? (
+            <img
+              src={location.flagUrl}
+              alt={`${location.country} flag`}
+              className="w-4 h-3 object-cover rounded-sm border border-black/10 shrink-0"
+              loading="lazy"
+              onError={(e) => {
+                e.target.style.display = "none";
+              }}
+            />
+          ) : (
+            <span className="inline-block">{location.flag}</span>
+          )}
+          <span>{location.country}{location.city ? ` · ${location.city}` : ""}</span>
         </p>
 
         {location.description && (
@@ -225,16 +237,16 @@ export default function GlobalMap() {
         {/* Legend */}
         <div className="flex flex-wrap gap-6 mt-8 text-xs font-medium text-ink/75">
           <div className="flex items-center gap-2">
-            <span className="w-3.5 h-3.5 rounded-full bg-[#12213a] border border-[#f5f1ea] shadow-sm"></span>
-            <span>🏢 Offices ({totalOffices})</span>
+            <span className="w-3.5 h-3.5 rounded-full bg-[#12213a] border border-[#f5f1ea] shadow-sm shrink-0 inline-flex" />
+            <span className="inline-flex items-center gap-1.5">🏢 Offices ({totalOffices})</span>
           </div>
           <div className="flex items-center gap-2">
-            <span className="w-3.5 h-3.5 rounded-full bg-[#c9a961] border border-[#f5f1ea] shadow-sm"></span>
-            <span>🎓 Direct partner institutions</span>
+            <span className="w-3.5 h-3.5 rounded-full bg-[#c9a961] border border-[#f5f1ea] shadow-sm shrink-0 inline-flex" />
+            <span className="inline-flex items-center gap-1.5">🎓 Direct partner institutions</span>
           </div>
           <div className="flex items-center gap-2">
-            <span className="w-3.5 h-3.5 rounded-full bg-[#c8451f] border border-[#f5f1ea] shadow-sm"></span>
-            <span>🌟 AcdyOn × upGrad programs</span>
+            <span className="w-3.5 h-3.5 rounded-full bg-[#c8451f] border border-[#f5f1ea] shadow-sm shrink-0 inline-flex" />
+            <span className="inline-flex items-center gap-1.5">🌟 AcdyOn × upGrad programs</span>
           </div>
         </div>
 

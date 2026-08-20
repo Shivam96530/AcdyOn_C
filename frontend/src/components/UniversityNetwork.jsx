@@ -40,7 +40,19 @@ export default function UniversityNetwork() {
               className="border-b border-r border-black/15 p-7 md:p-9"
             >
               <div className="flex items-center gap-3">
-                <span className="text-3xl">{region.flag}</span>
+                {region.flagUrl ? (
+                  <img
+                    src={region.flagUrl}
+                    alt={`${region.country} flag`}
+                    className="w-8 h-6 object-cover rounded-sm border border-black/10 shrink-0"
+                    loading="lazy"
+                    onError={(e) => {
+                      e.target.style.display = "none";
+                    }}
+                  />
+                ) : (
+                  <span className="text-3xl">{region.flag}</span>
+                )}
                 <div>
                   <p className="text-xs uppercase tracking-[0.16em] text-black/40">
                     {region.category}

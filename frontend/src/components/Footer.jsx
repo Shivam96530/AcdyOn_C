@@ -66,8 +66,21 @@ export default function Footer() {
             <div className="mt-5 grid gap-7 md:grid-cols-3 lg:grid-cols-1 xl:grid-cols-3">
               {officeLocations.map((office) => (
                 <article key={office.id}>
-                  <p className="text-sm font-medium">
-                    {office.flag} {office.country}
+                  <p className="text-sm font-medium flex items-center gap-2">
+                    {office.flagUrl ? (
+                      <img
+                        src={office.flagUrl}
+                        alt={`${office.country} flag`}
+                        className="w-4 h-3 object-cover rounded-sm border border-white/10 shrink-0"
+                        loading="lazy"
+                        onError={(e) => {
+                          e.target.style.display = "none";
+                        }}
+                      />
+                    ) : (
+                      <span>{office.flag}</span>
+                    )}
+                    <span>{office.country}</span>
                   </p>
                   <p className="mt-2 text-xs font-medium text-white/70">
                     {office.name}
