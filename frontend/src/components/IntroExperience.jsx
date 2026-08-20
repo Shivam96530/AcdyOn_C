@@ -328,6 +328,57 @@ export default function IntroExperience({ onComplete }) {
         />
       ))}
 
+      {/* Floating & popping background question marks during the 5 questions phase */}
+      {(phase === "scrolling" || phase === "pauseEnd") && !questionsFading && (
+        <div className="absolute inset-0 pointer-events-none overflow-hidden z-0">
+          {[
+            { left: "5%", top: "10%", size: "72px", delay: "0s", dur: "7.2s", color: "rgba(201, 169, 97, 0.35)" },
+            { left: "88%", top: "12%", size: "84px", delay: "1.2s", dur: "8.5s", color: "rgba(245, 241, 234, 0.26)" },
+            { left: "8%", top: "72%", size: "76px", delay: "2.4s", dur: "7.8s", color: "rgba(200, 69, 31, 0.32)" },
+            { left: "84%", top: "68%", size: "70px", delay: "3.5s", dur: "8.1s", color: "rgba(201, 169, 97, 0.32)" },
+            { left: "3%", top: "40%", size: "62px", delay: "1.8s", dur: "7.5s", color: "rgba(245, 241, 234, 0.22)" },
+            { left: "92%", top: "42%", size: "68px", delay: "3.0s", dur: "8.8s", color: "rgba(201, 169, 97, 0.3)" },
+            { left: "22%", top: "6%", size: "56px", delay: "4.1s", dur: "7.6s", color: "rgba(200, 69, 31, 0.25)" },
+            { left: "74%", top: "8%", size: "60px", delay: "0.6s", dur: "8.2s", color: "rgba(245, 241, 234, 0.28)" },
+            { left: "12%", top: "88%", size: "90px", delay: "4.8s", dur: "8.0s", color: "rgba(201, 169, 97, 0.32)" },
+            { left: "82%", top: "86%", size: "64px", delay: "2.7s", dur: "7.4s", color: "rgba(245, 241, 234, 0.24)" },
+            { left: "40%", top: "4%", size: "52px", delay: "1.0s", dur: "8.4s", color: "rgba(201, 169, 97, 0.28)" },
+            { left: "58%", top: "6%", size: "58px", delay: "3.8s", dur: "7.9s", color: "rgba(200, 69, 31, 0.26)" },
+            { left: "36%", top: "92%", size: "72px", delay: "2.1s", dur: "8.6s", color: "rgba(245, 241, 234, 0.25)" },
+            { left: "62%", top: "94%", size: "78px", delay: "4.5s", dur: "7.7s", color: "rgba(201, 169, 97, 0.3)" },
+            { left: "2%", top: "24%", size: "80px", delay: "1.5s", dur: "8.3s", color: "rgba(201, 169, 97, 0.32)" },
+            { left: "95%", top: "26%", size: "68px", delay: "3.2s", dur: "7.8s", color: "rgba(200, 69, 31, 0.27)" },
+            { left: "2%", top: "58%", size: "60px", delay: "2.9s", dur: "8.7s", color: "rgba(245, 241, 234, 0.22)" },
+            { left: "96%", top: "60%", size: "86px", delay: "0.4s", dur: "7.3s", color: "rgba(201, 169, 97, 0.35)" },
+            { left: "18%", top: "32%", size: "48px", delay: "2.3s", dur: "8.1s", color: "rgba(201, 169, 97, 0.25)" },
+            { left: "78%", top: "34%", size: "54px", delay: "4.0s", dur: "7.6s", color: "rgba(200, 69, 31, 0.22)" },
+            { left: "28%", top: "82%", size: "64px", delay: "0.9s", dur: "8.9s", color: "rgba(245, 241, 234, 0.26)" },
+            { left: "68%", top: "80%", size: "58px", delay: "3.6s", dur: "7.7s", color: "rgba(201, 169, 97, 0.28)" },
+            { left: "15%", top: "52%", size: "50px", delay: "1.7s", dur: "8.2s", color: "rgba(200, 69, 31, 0.24)" },
+            { left: "85%", top: "50%", size: "56px", delay: "4.3s", dur: "7.5s", color: "rgba(245, 241, 234, 0.25)" },
+            { left: "32%", top: "14%", size: "44px", delay: "0.2s", dur: "8.4s", color: "rgba(201, 169, 97, 0.22)" },
+            { left: "65%", top: "16%", size: "48px", delay: "2.8s", dur: "7.9s", color: "rgba(200, 69, 31, 0.23)" },
+            { left: "48%", top: "95%", size: "62px", delay: "3.4s", dur: "8.6s", color: "rgba(201, 169, 97, 0.27)" },
+            { left: "52%", top: "2%", size: "50px", delay: "1.1s", dur: "7.8s", color: "rgba(245, 241, 234, 0.23)" },
+          ].map((qm, idx) => (
+            <div
+              key={idx}
+              className="absolute font-display font-bold select-none"
+              style={{
+                left: qm.left,
+                top: qm.top,
+                fontSize: qm.size,
+                color: qm.color,
+                animation: `qPop ${qm.dur} ease-in-out infinite`,
+                animationDelay: qm.delay,
+              }}
+            >
+              ?
+            </div>
+          ))}
+        </div>
+      )}
+
       {/* Question card stack */}
       <div
         className="relative flex items-center justify-center"
