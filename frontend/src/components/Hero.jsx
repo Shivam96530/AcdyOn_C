@@ -180,7 +180,6 @@ export default function Hero() {
                   Global signal
                 </p>
               </div>
-              <span className="text-[10px] text-paper/45">01 / 05</span>
             </div>
 
             <p className="text-paper text-xl md:text-2xl font-medium leading-tight tracking-tight mb-8">
@@ -208,7 +207,6 @@ export default function Hero() {
                 <span className="w-1 h-1 rounded-full bg-emerald-400" />
                 Live
               </span>
-              <span>18+ countries</span>
             </div>
           </div>
         </div>
