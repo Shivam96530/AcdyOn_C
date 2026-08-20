@@ -47,11 +47,8 @@ export default function AcdyOnAdvantage() {
 
         <div className="mt-16">
           {/* Grid with proper borders on all cards including last row */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-0 border border-line">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-0 border border-line advantage-grid">
             {advantages.map((advantage, index) => {
-              const isLastRow = index >= advantages.length - 3;
-              const isLastColumn = (index + 1) % 3 === 0;
-
               return (
                 <motion.article
                   key={advantage.title}
@@ -59,10 +56,7 @@ export default function AcdyOnAdvantage() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: index * 0.06 }}
-                  className={`p-7 md:p-9 min-h-[220px] ${
-                    !isLastRow ? "border-b" : ""
-                  } ${!isLastColumn ? "md:border-r" : ""}`}
-                  style={{ borderColor: "var(--line)" }}
+                  className="p-7 md:p-9 min-h-[220px]"
                 >
                   <span className="text-xs text-ink/40">
                     0{index + 1}

@@ -184,3 +184,41 @@ body {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* ============ Advantage Grid Responsive Borders ============ */
+.advantage-grid > article {
+  border-bottom: 1px solid var(--line);
+  border-right: 0;
+}
+.advantage-grid > article:last-child {
+  border-bottom: 0;
+}
+
+@media (min-width: 768px) {
+  .advantage-grid > article {
+    border-bottom: 1px solid var(--line);
+    border-right: 1px solid var(--line);
+  }
+  .advantage-grid > article:nth-child(2n) {
+    border-right: 0;
+  }
+  .advantage-grid > article:nth-last-child(-n+2) {
+    border-bottom: 0;
+  }
+}
+
+@media (min-width: 1024px) {
+  .advantage-grid > article {
+    border-bottom: 1px solid var(--line);
+    border-right: 1px solid var(--line);
+  }
+  .advantage-grid > article:nth-child(2n) {
+    border-right: 1px solid var(--line); /* Restore from tablet 2n rule */
+  }
+  .advantage-grid > article:nth-child(3n) {
+    border-right: 0;
+  }
+  .advantage-grid > article:nth-last-child(-n+3) {
+    border-bottom: 0;
+  }
+}
