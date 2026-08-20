@@ -96,7 +96,7 @@ export default function FindYourPath() {
 
   const handleSelect = (option) => {
     setAnswers({ ...answers, [questions[currentStep].id]: option });
-    
+
     if (currentStep < questions.length - 1) {
       setCurrentStep(currentStep + 1);
     } else {
@@ -161,11 +161,10 @@ export default function FindYourPath() {
                     <button
                       key={option}
                       onClick={() => handleSelect(option)}
-                      className={`p-4 rounded-xl text-left transition-all duration-200 border-2 ${
-                        answers[questions[currentStep].id] === option
+                      className={`p-4 rounded-xl text-left transition-all duration-200 border-2 ${answers[questions[currentStep].id] === option
                           ? "border-acdyon-black bg-acdyon-black text-white"
                           : "border-zinc-200 hover:border-acdyon-black hover:bg-zinc-100"
-                      }`}
+                        }`}
                     >
                       <div className="flex items-center justify-between">
                         <span className="font-medium">{option}</span>
@@ -221,7 +220,7 @@ export default function FindYourPath() {
               </button>
 
               <p className="mt-4 text-xs text-zinc-400">
-                * This is an indicative pathway suggestion. Final admissions decisions 
+                * This is an indicative pathway suggestion. Final admissions decisions
                 are made by partner institutions after eligibility review.
               </p>
             </motion.div>

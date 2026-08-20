@@ -212,20 +212,6 @@ export default function Hero() {
             </div>
           </div>
         </div>
-
-        {/* Bottom marquee inside the frame */}
-        <div className="relative z-10 border-t border-paper/12 py-4 overflow-hidden">
-          <div className="marquee-track flex w-max items-center gap-10 whitespace-nowrap">
-            {[...partnerInstitutions, ...partnerInstitutions].map((u, i) => (
-              <div key={i} className="flex items-center gap-10 text-paper/55">
-                <span className="text-sm tracking-tight">
-                  {u.shortName || u.name}
-                </span>
-                <span className="w-1 h-1 rounded-full bg-paper/25" />
-              </div>
-            ))}
-          </div>
-        </div>
       </div>
     </section>
   );
