@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { MessageCircle, X, Send } from "lucide-react";
-import Button from "./Button";
+import CutButton from "./CutButton";
 
 export default function Chatbot() {
   const [isOpen, setIsOpen] = useState(false);
@@ -14,11 +14,12 @@ export default function Chatbot() {
         animate={{ scale: 1 }}
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
-        onClick={() => setIsOpen(true)}
-        className="fixed bottom-6 right-6 z-50 w-14 h-14 bg-ink text-paper rounded-full shadow-2xl border border-gold/40 flex items-center justify-center hover:bg-ink/90 transition-colors"
-        aria-label="Open chat"
+        onClick={() => setIsOpen(!isOpen)}
+        className="fixed bottom-6 right-6 z-50 w-14 h-14 bg-accent text-white rounded-full flex items-center justify-center hover:bg-accent-hover transition-colors shadow-xl"
+        aria-label={isOpen ? "Close chat" : "Open chat"}
+        style={{ boxShadow: "0 4px 20px rgba(200, 69, 31, 0.4)" }}
       >
-        <MessageCircle size={24} />
+        {isOpen ? <X size={24} /> : <MessageCircle size={24} />}
       </motion.button>
 
       {/* Chat Window */}
@@ -34,7 +35,7 @@ export default function Chatbot() {
             <div className="bg-ink text-paper p-4 flex justify-between items-center">
               <div>
                 <h3 className="font-bold text-paper">AcdyOn Assistant</h3>
-                <p className="text-xs text-paper/60">Coming Soon</p>
+                <p className="text-xs text-paper/60">Launching Soon</p>
               </div>
               <button
                 onClick={() => setIsOpen(false)}
@@ -52,15 +53,21 @@ export default function Chatbot() {
                   👋
                 </div>
                 <div className="bg-paper2 border border-ink/10 rounded-2xl rounded-tl-none p-4">
-                  <p className="text-sm text-ink mb-3">
-                    Hello. Our AI assistant is currently coming soon.
+                  <p className="text-sm text-ink/85 mb-3 leading-relaxed">
+                    Hello. Our AI-powered assistant is launching soon.
                   </p>
-                  <p className="text-sm text-ink/80 mb-4">
-                    For personalised guidance, book a consultation with an AcdyOn advisor.
+                  <p className="text-sm text-ink/85 mb-4 leading-relaxed">
+                    In the meantime, our academic advisors are available for personalised guidance. Book a consultation to discuss your pathway.
                   </p>
-                  <Button variant="primary" size="sm" className="w-full">
+                  <CutButton
+                    href="#contact"
+                    variant="solid-accent"
+                    size="sm"
+                    className="w-full justify-center"
+                    onClick={() => setIsOpen(false)}
+                  >
                     Book Consultation
-                  </Button>
+                  </CutButton>
                 </div>
               </div>
 

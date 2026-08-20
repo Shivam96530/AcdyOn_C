@@ -326,9 +326,9 @@ export default function Navbar() {
           {/* CTA */}
           <CutButton
             href="#contact"
-            variant="solid"
+            variant="solid-accent"
             size="sm"
-            className="ml-3"
+            className="ml-3 shadow-lg"
           >
             Book Consultation
           </CutButton>
