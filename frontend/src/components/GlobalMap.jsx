@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { X } from "lucide-react";
 import { officeLocations, partnerInstitutions, regions } from "../data/locations";
 import CutButton from "./CutButton";
+import InstitutionLogo from "./InstitutionLogo";
 import "leaflet/dist/leaflet.css";
 
 // Location Card Overlay (Fixed inside map container to prevent clipping/hiding)
@@ -20,26 +21,30 @@ function LocationOverlayCard({ location, isPinned, onClose }) {
       style={{ width: '280px' }}
     >
       <div className="bg-paper/97 backdrop-blur-md border border-line p-4 btn-cut-sm shadow-xl">
-        <div className="flex items-start justify-between mb-2">
-          <span className="text-[9px] uppercase tracking-[0.2em] text-ink/55 font-semibold">
-            {isOffice
-              ? "AcdyOn Office"
-              : location.partnership || `Partner ${location.institutionType || "Institution"}`}
-          </span>
+        <div className="flex items-start justify-between mb-3">
+          <div className="flex items-center gap-2.5">
+            <InstitutionLogo institution={location} size="md" />
+            <div>
+              <span className="text-[9px] uppercase tracking-[0.2em] text-ink/55 font-semibold block">
+                {isOffice
+                  ? "AcdyOn Office"
+                  : location.partnership || `Partner ${location.institutionType || "Institution"}`}
+              </span>
+              <h4 className="font-semibold text-sm text-ink leading-tight">
+                {location.name}
+              </h4>
+            </div>
+          </div>
           {isPinned && (
             <button
               onClick={onClose}
-              className="text-ink/40 hover:text-ink transition pointer-events-auto -mt-1 -mr-1 p-1"
+              className="text-ink/40 hover:text-ink transition pointer-events-auto -mt-1 -mr-1 p-1 shrink-0"
               aria-label="Close card"
             >
               <X size={13} />
             </button>
           )}
         </div>
-
-        <h4 className="font-semibold text-sm text-ink leading-tight">
-          {location.name}
-        </h4>
         <p className="text-[11px] text-ink/60 mt-0.5 flex items-center gap-1.5">
           {location.flagUrl ? (
             <img

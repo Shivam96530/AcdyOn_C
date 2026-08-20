@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
-import { universitiesByCountry } from "../data/locations";
+import { partnerInstitutions, universitiesByCountry } from "../data/locations";
+import InstitutionLogo from "./InstitutionLogo";
 
 export default function UniversityNetwork() {
   return (
@@ -63,15 +64,29 @@ export default function UniversityNetwork() {
                 </div>
               </div>
 
-              <div className="mt-8 flex flex-wrap gap-x-4 gap-y-2">
-                {region.universities.map((university) => (
-                  <span
-                    key={university}
-                    className="border-b border-black/20 pb-1 text-sm font-medium"
-                  >
-                    {university}
-                  </span>
-                ))}
+              <div className="mt-8 flex flex-wrap gap-x-5 gap-y-3">
+                {region.universities.map((universityName) => {
+                  const matchedInst = partnerInstitutions.find(
+                    (p) =>
+                      p.name === universityName ||
+                      p.shortName === universityName ||
+                      universityName.includes(p.shortName || p.name)
+                  );
+
+                  return (
+                    <div
+                      key={universityName}
+                      className="flex items-center gap-2 border-b border-black/15 pb-1.5"
+                    >
+                      {matchedInst && (
+                        <InstitutionLogo institution={matchedInst} size="sm" />
+                      )}
+                      <span className="text-sm font-medium text-black/85">
+                        {universityName}
+                      </span>
+                    </div>
+                  );
+                })}
               </div>
 
               <div className="mt-7 flex flex-wrap gap-2">
