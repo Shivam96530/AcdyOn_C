@@ -10,6 +10,7 @@ export default function Chatbot() {
     <>
       {/* Floating Button */}
       <motion.button
+        id="chatbot-toggle-btn"
         initial={{ scale: 0 }}
         animate={{ scale: 1 }}
         whileHover={{ scale: 1.05 }}
@@ -26,6 +27,7 @@ export default function Chatbot() {
       <AnimatePresence>
         {isOpen && (
           <motion.div
+            id="chatbot-window-panel"
             initial={{ opacity: 0, y: 20, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}

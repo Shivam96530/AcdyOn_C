@@ -225,6 +225,15 @@ export default function Navbar() {
     return () => clearTimeout(closeTimer.current);
   }, []);
 
+  useEffect(() => {
+    if (mobileOpen) {
+      document.body.classList.add("mobile-nav-open");
+    } else {
+      document.body.classList.remove("mobile-nav-open");
+    }
+    return () => document.body.classList.remove("mobile-nav-open");
+  }, [mobileOpen]);
+
   const handleMenuEnter = (key) => {
     clearTimeout(closeTimer.current);
     setOpenMenu(key);

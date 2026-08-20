@@ -205,7 +205,7 @@ export default function Hero() {
             <div className="mt-8 pt-5 border-t border-paper/15 flex items-center justify-between text-[10px] uppercase tracking-[0.22em] text-paper/50">
               <span className="flex items-center gap-2">
                 <span className="w-1 h-1 rounded-full bg-emerald-400" />
-                Live
+                Demo
               </span>
             </div>
           </div>

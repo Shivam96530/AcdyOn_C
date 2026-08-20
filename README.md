@@ -36,32 +36,35 @@ This redesign addresses three core objectives from the challenge brief:
 ```text
 acdyon-redesign/
 ├── public/
-│   ├── acdyon-logo.webp       # High-res logo for intro
-│   └── rider-pov.png          # First-person motorcycle image
+│   └── acdyon-logo.webp       # High-res logo for brand and intro
 ├── src/
 │   ├── components/
-│   │   ├── IntroExperience.jsx  # Cinematic intro experience
-│   │   ├── Navbar.jsx           # Mega-menu navigation
-│   │   ├── Hero.jsx             # Value prop + stats panel
-│   │   ├── RecognitionTicker.jsx# Partner marquee
-│   │   ├── FindYourPath.jsx     # Interactive pathway selector
-│   │   ├── Programs.jsx         # Program categories
-│   │   ├── TransformationJourney.jsx
-│   │   ├── AcdyOnAdvantage.jsx  # 6-card advantage grid
-│   │   ├── FeaturedAIProgram.jsx
-│   │   ├── GlobalMap.jsx        # 3 regional maps + location list
-│   │   ├── Process.jsx          # 4-step process
-│   │   ├── FAQ.jsx              # Accordion FAQs
-│   │   ├── Contact.jsx          # Office locations + form
-│   │   ├── Footer.jsx           # Multi-column footer
-│   │   └── Chatbot.jsx          # Demo chatbot (offline)
+│   │   ├── IntroExperience.jsx  # Cinematic 3D intro experience
+│   │   ├── Navbar.jsx           # Mega-menu navigation with mobile drawer
+│   │   ├── Hero.jsx             # Value prop + live simulation stats panel
+│   │   ├── RecognitionTicker.jsx# Partner marquee with HD institution logos
+│   │   ├── FindYourPath.jsx     # Interactive pathway selector quiz
+│   │   ├── Programs.jsx         # Program categories with icons
+│   │   ├── TransformationJourney.jsx # From Career to Academic Recognition
+│   │   ├── AcdyOnAdvantage.jsx  # 6-card responsive advantage grid
+│   │   ├── FeaturedAIProgram.jsx# Highlighted Agentic AI track
+│   │   ├── GlobalMap.jsx        # 3 interactive Leaflet regional maps
+│   │   ├── UniversityNetwork.jsx# Global partner network by region
+│   │   ├── Process.jsx          # 4-step guided consultation process
+│   │   ├── FAQ.jsx              # Interactive accordion FAQs
+│   │   ├── Contact.jsx          # Office locations + consultation booking
+│   │   ├── Footer.jsx           # Multi-column semantic footer
+│   │   ├── InstitutionLogo.jsx  # Error-handled responsive partner logo badges
+│   │   ├── CutButton.jsx        # Custom octagonal clip-path button system
+│   │   └── Chatbot.jsx          # Interactive AI assistant dialog
 │   ├── data/
-│   │   ├── locations.js         # 14 institutions + 3 offices
-│   │   ├── content.js           # Copy and content blocks
-│   │   └── universities.js      # Process steps, FAQs
+│   │   ├── locations.js         # 14 partner institutions + 3 global offices
+│   │   ├── content.js           # Copy, statistics, transformation journeys
+│   │   ├── programs.js          # Detailed curriculum & category models
+│   │   └── universities.js      # Structured 4-step consultation process data
 │   ├── App.jsx
 │   ├── main.jsx
-│   └── index.css            # Design tokens, animations
+│   └── index.css            # Design tokens, clip paths, responsive borders
 ├── DECISIONS.md              # Required 1-page design document
 ├── AUDIT.md                  # Pre-submission checklist
 └── package.json
