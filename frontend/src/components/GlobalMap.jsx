@@ -174,12 +174,12 @@ function RegionalMap({ region }) {
               <CircleMarker
                 key={loc.id}
                 center={loc.coords}
-                radius={6.5}
+                radius={5.5}
                 pathOptions={{
                   color: "#f5f1ea",
                   fillColor: fillColor,
                   fillOpacity: 1,
-                  weight: 2,
+                  weight: 1.5,
                 }}
                 eventHandlers={{
                   mouseover: () => setActiveLocation(loc),
