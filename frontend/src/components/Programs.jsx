@@ -39,7 +39,7 @@ export default function Programs() {
                 whileHover={{ y: -5 }}
                 className="bg-white rounded-2xl p-8 shadow-sm hover:shadow-lg transition-all duration-300"
               >
-                <div className="w-14 h-14 bg-acdyon-black rounded-xl flex items-center justify-center mb-6">
+                <div className="w-14 h-14 bg-ink rounded-xl flex items-center justify-center mb-6">
                   <Icon className="text-white" size={28} />
                 </div>
                 <h3 className="text-2xl font-bold mb-2">{category.title}</h3>
@@ -48,7 +48,7 @@ export default function Programs() {
                 <ul className="space-y-2">
                   {category.programs.slice(0, 3).map((program, i) => (
                     <li key={i} className="text-sm text-zinc-500 flex items-center gap-2">
-                      <span className="w-1.5 h-1.5 bg-acdyon-black rounded-full" />
+                      <span className="w-1.5 h-1.5 bg-ink rounded-full" />
                       {program}
                     </li>
                   ))}

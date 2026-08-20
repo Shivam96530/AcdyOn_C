@@ -1,5 +1,4 @@
-import { useEffect, useState } from "react";
-import IntroExperience from "./components/IntroExperience";
+import { useEffect, useState, lazy, Suspense } from "react";
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import RecognitionTicker from "./components/RecognitionTicker";
@@ -8,13 +7,16 @@ import Programs from "./components/Programs";
 import TransformationJourney from "./components/TransformationJourney";
 import AcdyOnAdvantage from "./components/AcdyOnAdvantage";
 import FeaturedAIProgram from "./components/FeaturedAIProgram";
-import GlobalMap from "./components/GlobalMap";
 import UniversityNetwork from "./components/UniversityNetwork";
 import Process from "./components/Process";
 import FAQ from "./components/FAQ";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
 import Chatbot from "./components/Chatbot";
+
+// Lazy-load heavy components to split the bundle
+const IntroExperience = lazy(() => import("./components/IntroExperience"));
+const GlobalMap = lazy(() => import("./components/GlobalMap"));
 
 export default function App() {
   const [showIntro, setShowIntro] = useState(() => {
@@ -39,7 +41,11 @@ export default function App() {
 
   return (
     <main id="top" className="bg-paper text-ink font-inter overflow-x-hidden">
-      {showIntro && <IntroExperience onComplete={done} />}
+      {showIntro && (
+        <Suspense fallback={null}>
+          <IntroExperience onComplete={done} />
+        </Suspense>
+      )}
       <div className={`transition-opacity duration-700 ${ready ? "opacity-100" : "opacity-0 pointer-events-none"}`}>
         <Navbar />
         <Hero />
@@ -49,7 +55,9 @@ export default function App() {
         <TransformationJourney />
         <AcdyOnAdvantage />
         <FeaturedAIProgram />
-        <GlobalMap />
+        <Suspense fallback={<div className="h-[600px] bg-paper2" />}>
+          <GlobalMap />
+        </Suspense>
         <UniversityNetwork />
         <Process />
         <FAQ />

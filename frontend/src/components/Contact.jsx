@@ -5,7 +5,7 @@ import { officeLocations } from "../data/locations";
 
 export default function Contact() {
   return (
-    <section className="py-20 md:py-24 bg-paper text-ink px-3 md:px-4" id="contact">
+    <section className="py-20 md:py-24 bg-white text-ink" id="contact">
       <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}

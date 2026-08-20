@@ -4,7 +4,7 @@ import { advantages } from "../data/content";
 
 export default function AcdyOnAdvantage() {
   return (
-    <section className="bg-[#f4f2ee] py-24 text-[#101010]">
+    <section className="bg-paper2 py-24 text-ink">
       <div className="mx-auto max-w-[1280px] px-5 md:px-8">
         <div className="grid gap-12 lg:grid-cols-[0.92fr_1.08fr]">
           <div>

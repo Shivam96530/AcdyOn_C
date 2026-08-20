@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
-import Button from "./Button";
+import CutButton from "./CutButton";
 import { Calculator } from "lucide-react";
 
 export default function Scholarship() {
@@ -22,7 +22,7 @@ export default function Scholarship() {
             className="bg-white rounded-2xl p-8 md:p-12 shadow-sm"
           >
             <div className="flex items-center gap-4 mb-8">
-              <div className="w-14 h-14 bg-acdyon-black rounded-xl flex items-center justify-center">
+              <div className="w-14 h-14 bg-ink rounded-xl flex items-center justify-center">
                 <Calculator className="text-white" size={28} />
               </div>
               <div>
@@ -47,8 +47,8 @@ export default function Scholarship() {
                     onClick={() => setExperience(option)}
                     className={`p-4 rounded-xl text-center transition-all duration-200 border-2 ${
                       experience === option
-                        ? "border-acdyon-black bg-acdyon-black text-white"
-                        : "border-zinc-200 hover:border-acdyon-black"
+                        ? "border-ink bg-ink text-white"
+                        : "border-zinc-200 hover:border-ink"
                     }`}
                   >
                     {option}
@@ -72,15 +72,14 @@ export default function Scholarship() {
               </label>
             </div>
 
-            <Button
-              variant="primary"
+            <CutButton
+              href="#contact"
+              variant="solid-accent"
               size="lg"
-              onClick={handleEstimate}
-              disabled={!experience}
               className="w-full md:w-auto"
             >
               Estimate My Scholarship
-            </Button>
+            </CutButton>
 
             {showEstimate && (
               <motion.div
@@ -92,9 +91,9 @@ export default function Scholarship() {
                   Based on your profile, you may be eligible for an indicative scholarship.
                   Please book a consultation for a personalized assessment.
                 </p>
-                <Button variant="secondary" className="mt-4">
+                <CutButton href="#contact" variant="outline" size="sm" className="mt-4">
                   Book Consultation
-                </Button>
+                </CutButton>
               </motion.div>
             )}
           </motion.div>

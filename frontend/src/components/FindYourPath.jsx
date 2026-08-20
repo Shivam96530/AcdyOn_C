@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { Check, ArrowRight } from "lucide-react";
-import Button from "./Button";
+import CutButton from "./CutButton";
 
 const questions = [
   {
@@ -140,7 +140,7 @@ export default function FindYourPath() {
                   <motion.div
                     initial={{ width: 0 }}
                     animate={{ width: `${((currentStep + 1) / questions.length) * 100}%` }}
-                    className="h-full bg-acdyon-black"
+                    className="h-full bg-ink"
                   />
                 </div>
               </div>
@@ -162,8 +162,8 @@ export default function FindYourPath() {
                       key={option}
                       onClick={() => handleSelect(option)}
                       className={`p-4 rounded-xl text-left transition-all duration-200 border-2 ${answers[questions[currentStep].id] === option
-                          ? "border-acdyon-black bg-acdyon-black text-white"
-                          : "border-zinc-200 hover:border-acdyon-black hover:bg-zinc-100"
+                          ? "border-ink bg-ink text-paper"
+                          : "border-zinc-200 hover:border-ink hover:bg-zinc-100"
                         }`}
                     >
                       <div className="flex items-center justify-between">
@@ -182,7 +182,7 @@ export default function FindYourPath() {
               className="bg-zinc-50 rounded-2xl p-8 md:p-12"
             >
               <div className="flex items-center gap-3 mb-6">
-                <div className="w-12 h-12 bg-acdyon-black rounded-full flex items-center justify-center">
+                <div className="w-12 h-12 bg-ink rounded-full flex items-center justify-center">
                   <Check className="text-white" size={24} />
                 </div>
                 <div>
@@ -196,7 +196,7 @@ export default function FindYourPath() {
                 <ul className="space-y-3">
                   {result.reasons.map((reason, index) => (
                     <li key={index} className="flex items-start gap-3">
-                      <Check size={20} className="text-acdyon-black mt-0.5 flex-shrink-0" />
+                      <Check size={20} className="text-ink mt-0.5 flex-shrink-0" />
                       <span>{reason}</span>
                     </li>
                   ))}
@@ -204,17 +204,17 @@ export default function FindYourPath() {
               </div>
 
               <div className="flex flex-col sm:flex-row gap-4">
-                <Button variant="primary" size="lg" className="flex-1">
+                <CutButton href="#contact" variant="solid-accent" size="md" className="flex-1 justify-center">
                   Explore Pathway
-                </Button>
-                <Button variant="secondary" size="lg" className="flex-1">
+                </CutButton>
+                <CutButton href="#contact" variant="outline" size="md" className="flex-1 justify-center">
                   Book Consultation
-                </Button>
+                </CutButton>
               </div>
 
               <button
                 onClick={handleReset}
-                className="mt-6 text-sm text-zinc-500 hover:text-acdyon-black underline"
+                className="mt-6 text-sm text-zinc-500 hover:text-ink underline"
               >
                 Start Over
               </button>

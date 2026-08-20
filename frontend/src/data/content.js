@@ -7,39 +7,6 @@ export const heroStats = [
   { value: "Executive", label: "Program Design" },
 ];
 
-export const programCategories = [
-  {
-    id: "ai",
-    title: "AI & Automation",
-    description: "Applied AI, agents, automation, and no-code workflows for leaders building future-ready capability.",
-    cta: "Explore pathway",
-  },
-  {
-    id: "doctoral",
-    title: "Doctoral Programs",
-    description: "Flexible academic pathways designed around working professionals and experienced leaders.",
-    cta: "Explore pathway",
-  },
-  {
-    id: "honorary",
-    title: "Honorary Recognition",
-    description: "Prestige-led honorary awards and recognition routes for distinguished professional contribution.",
-    cta: "Explore pathway",
-  },
-  {
-    id: "executive",
-    title: "Executive Certifications",
-    description: "Compact, outcome-oriented certifications for credibility, career mobility, and leadership depth.",
-    cta: "Explore pathway",
-  },
-  {
-    id: "corporate",
-    title: "Corporate Training",
-    description: "Custom learning tracks for organizations adopting AI, automation, and digital leadership.",
-    cta: "Explore pathway",
-  },
-];
-
 export const transformationJourneys = [
   {
     startingPoint: "Corporate Leader",
@@ -75,33 +42,6 @@ export const transformationJourneys = [
   },
 ];
 
-export const pathwayGoals = [
-  {
-    title: "I want to master AI and future technologies",
-    description: "Build real AI agents, automate business workflows, and develop applied capability that translates directly into professional impact.",
-    leadsTo: "AI Practitioner · Automation Builder · Future-Ready Leader",
-    cta: "Explore AI Programmes",
-  },
-  {
-    title: "I want executive advancement and leadership credibility",
-    description: "Formalise your executive expertise through an internationally recognised doctorate designed for working professionals.",
-    leadsTo: "Doctor of Business Administration · Board-Level Authority",
-    cta: "Explore DBA Pathways",
-  },
-  {
-    title: "I want academic research and scholarly contribution",
-    description: "Pursue original research that advances knowledge in your field and earns formal academic standing at the doctoral level.",
-    leadsTo: "Doctor of Philosophy · Published Scholar · Research Identity",
-    cta: "Explore PhD Pathways",
-  },
-  {
-    title: "I want honorary recognition for my achievements",
-    description: "Receive formal institutional recognition for your distinguished professional contribution and lifetime achievements.",
-    leadsTo: "Honorary Doctorate · Thought Leader · Public Recognition",
-    cta: "Explore Recognition",
-  },
-];
-
 export const advantages = [
   {
     title: "Globally Recognised Institutions",
@@ -129,27 +69,6 @@ export const advantages = [
   },
 ];
 
-export const testimonials = [
-  {
-    initials: "DMR",
-    name: "Dr. Maya Raman",
-    role: "Healthcare Director",
-    quote: "AcdyOn gave me a guided academic pathway that respected my executive schedule and strengthened my global profile.",
-  },
-  {
-    initials: "OA",
-    name: "Omar Al-Khatib",
-    role: "Founder & Strategy Consultant",
-    quote: "The AI and automation focus felt practical, premium, and directly relevant to how leaders need to work now.",
-  },
-  {
-    initials: "EF",
-    name: "Elena Fischer",
-    role: "Corporate Learning Lead",
-    quote: "The consultation process was clear, credible, and genuinely helpful for selecting the right program direction.",
-  },
-];
-
 export const faqs = [
   {
     question: "Are programs globally recognised?",
@@ -170,29 +89,6 @@ export const faqs = [
   {
     question: "Are doctoral pathways flexible?",
     answer: "Yes. Doctoral programmes are designed with flexible timelines, part-time options, and online components to accommodate executive schedules.",
-  },
-];
-
-export const processSteps = [
-  {
-    number: "1",
-    title: "Consultation",
-    description: "Clarify your goals, timeline, professional profile, and ideal pathway.",
-  },
-  {
-    number: "2",
-    title: "Eligibility Review",
-    description: "Assess academic background, experience, and recognition fit.",
-  },
-  {
-    number: "3",
-    title: "Program Selection",
-    description: "Choose the program route aligned with your career and authority goals.",
-  },
-  {
-    number: "4",
-    title: "Enrollment & Guidance",
-    description: "Receive structured next steps and ongoing academic support.",
   },
 ];
 

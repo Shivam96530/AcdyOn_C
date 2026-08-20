@@ -13,6 +13,7 @@ export default {
         paper2: "#ebe4d6",
         accent: "#c8451f",
         gold: "#c9a961",
+        line: "rgba(18, 33, 58, 0.14)",
       },
     },
   },

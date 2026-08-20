@@ -162,14 +162,6 @@ body {
   animation: maskLine 1s cubic-bezier(0.22, 0.85, 0.24, 1) forwards;
 }
 
-/* ============ Marquee ============ */
-@keyframes marquee {
-  from { transform: translateX(0); }
-  to   { transform: translateX(-50%); }
-}
-.marquee-track {
-  animation: marquee 34s linear infinite;
-}
 
 /* ============ Map cursor ============ */
 .map-airplane .leaflet-container {
