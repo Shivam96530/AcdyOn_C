@@ -217,40 +217,37 @@ export default function IntroExperience({ onComplete }) {
 
   const getCardTransform = (index) => {
     const diff = index - activeIndex;
-    const mx = mousePos.current.x;
-    const my = mousePos.current.y;
+    const isMobile = windowSize.w < 768;
+    const mx = isMobile ? 0 : mousePos.current.x;
+    const my = isMobile ? 0 : mousePos.current.y;
 
     if (diff === 0) {
       return {
-        transform: `perspective(1200px) translateZ(60px) rotateY(${mx * 8}deg) rotateX(${-my * 6}deg) rotateZ(-2deg) scale(1)`,
+        transform: `perspective(1200px) translateZ(60px) rotateY(${mx * 6}deg) rotateX(${-my * 4}deg) rotateZ(-2deg) scale(1)`,
         opacity: questionsFading ? 0 : 1,
         zIndex: 50,
-        filter: "none",
       };
     }
     if (diff === 1 || (diff < 0 && diff > -QUESTIONS.length + 1)) {
       const actualDiff = diff === 1 ? 1 : QUESTIONS.length + diff;
       return {
-        transform: `perspective(1200px) translateY(${70 + actualDiff * 20}px) translateZ(${-80 * actualDiff}px) rotateX(${-15 - actualDiff * 5}deg) rotateZ(-2deg) scale(${1 - actualDiff * 0.08})`,
-        opacity: questionsFading ? 0 : 0.4,
+        transform: `perspective(1200px) translateY(${60 + actualDiff * 18}px) translateZ(${-70 * actualDiff}px) rotateX(${-12 - actualDiff * 4}deg) rotateZ(-2deg) scale(${1 - actualDiff * 0.08})`,
+        opacity: questionsFading ? 0 : 0.45,
         zIndex: 40 - actualDiff * 10,
-        filter: `blur(${actualDiff * 1.5}px)`,
       };
     }
     if (diff === -1 || diff === QUESTIONS.length - 1) {
       return {
-        transform: `perspective(1200px) translateY(-180px) translateZ(-120px) rotateX(25deg) rotateZ(-2deg) scale(0.85)`,
+        transform: `perspective(1200px) translateY(-160px) translateZ(-100px) rotateX(20deg) rotateZ(-2deg) scale(0.85)`,
         opacity: 0,
         zIndex: 10,
-        filter: "blur(4px)",
       };
     }
     const absDiff = Math.abs(diff);
     return {
-      transform: `perspective(1200px) translateY(${60 + absDiff * 30}px) translateZ(${-60 * absDiff}px) rotateX(-12deg) rotateZ(-2deg) scale(${Math.max(0.7, 1 - absDiff * 0.1)})`,
-      opacity: questionsFading ? 0 : Math.max(0, 0.6 - absDiff * 0.2),
+      transform: `perspective(1200px) translateY(${50 + absDiff * 25}px) translateZ(${-50 * absDiff}px) rotateX(-10deg) rotateZ(-2deg) scale(${Math.max(0.7, 1 - absDiff * 0.1)})`,
+      opacity: questionsFading ? 0 : Math.max(0, 0.5 - absDiff * 0.2),
       zIndex: 30 - absDiff * 10,
-      filter: `blur(${absDiff * 2}px)`,
     };
   };
 
@@ -361,7 +358,8 @@ export default function IntroExperience({ onComplete }) {
                   0 20px 60px rgba(0,0,0,0.5),
                   inset 0 1px 0 rgba(245,241,234,0.06)
                 `,
-                transition: "all 0.9s cubic-bezier(0.23, 1, 0.32, 1)",
+                willChange: "transform, opacity",
+                transition: "transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1)",
                 transformStyle: "preserve-3d",
                 ...styles,
               }}
